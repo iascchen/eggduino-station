@@ -1,0 +1,6 @@
+Flask
+flask-appconfig
+flask-nav
+flask-debug
+Flask-Script
+moment

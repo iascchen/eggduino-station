@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eggduino -- ICBP & Microduino</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#    <meta http-equiv="refresh" content="2">#}
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="/static/jquery-3.1.1.min.js"></script>
+
+    <link href="/static/nv.d3.min.css" rel="stylesheet" type="text/css">
+    <script src="/static/d3.min.js" charset="utf-8"></script>
+    <script src="/static/nv.d3.min.js"></script>
+
+    <script src="/static/three.min.js"></script>
+
+    <script src="/static/moment.min.js"></script>
+
+    <link rel="stylesheet" href="/static/macron.css">
+</head>
+<body>
+<div class="col-md-6">
+    {% include 'header.html' %}
+
+    <script>
+        let url = "/curr_data";
+        let data = null;
+        let currQauts, currTems, currHum, currStation;
+    </script>
+
+    <h1 class="mtitle">Egg</h1>
+
+    <div class="row">
+        <h3><img class="icon_big" src="/static/imgs/Temperature.png">Temperatures <span class="mlabel blue"
+                                                                                        id="temsTs"></span></h3>
+
+        <div class="col-md-12">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Temperature.png"> Average : </span>
+            <span class="mvalue" id="tem_17"></span>
+        </div>
+
+        {% for i in range(1, 17) %}
+            <div class="col-md-3">
+                <span class="mlabel"><img class="icon_small"
+                                          src="/static/imgs/Temperature.png">{{ '{0:02d}'.format(i) }} : </span>
+                <span class="mvalue" id="tem_{{ i }}"></span></span>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <h3><img class="icon_big" src="/static/imgs/Hum.png">Humidity <span class="mlabel blue" id="humTs"></span>
+        </h3>
+
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Hum.png"> : </span>
+            <span class="mvalue" id="hum"></span>
+        </div>
+
+    </div>
+    <div class="row">
+        <h3><img class="icon_big" src="/static/imgs/Motion.png">Quaternions
+            <span class="mlabel blue" id="quatsTs"></span></h3>
+
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Motion.png">w : </span>
+            <span class="mvalue" id="quats_w"></span>
+        </div>
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Motion.png">x : </span>
+            <span class="mvalue" id="quats_x"></span>
+        </div>
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Motion.png">y : </span>
+            <span class="mvalue" id="quats_y"></span>
+        </div>
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Motion.png">z : </span>
+            <span class="mvalue" id="quats_z"></span>
+        </div>
+    </div>
+
+    <p> &nbsp; </p>
+    <p> &nbsp; </p>
+
+    <h1 class="mtitle">Environment <span class="mlabel blue" id="stationTs"></span></h1>
+    <div class="row">
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Temperature.png"> : </span>
+            <span class="mvalue" id="s_tem"></span>
+        </div>
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Hum.png"> : </span>
+            <span class="mvalue" id="s_hum"></span>
+        </div>
+        <div class="col-md-3">
+            <span class="mlabel"><img class="icon_small" src="/static/imgs/Lightness.png"> : </span>
+            <span class="mvalue" id="s_light"></span>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div id="egg"></div>
+
+    <script src="/static/threejs/Detector.js"></script>
+    <script src="/static/threejs/stats.min.js"></script>
+    <script src="/static/threejs/Projector.js"></script>
+    <script src="/static/threejs/CanvasRenderer.js"></script>
+    <script src="/static/threejs/Lut.js"></script>
+    <script src="/static/egg.js"></script>
+
+    <script>
+
+        if (!Detector.webgl) Detector.addGetWebGLMessage({antialias: true});
+
+        let xScale = 0.5,
+                SCREEN_WIDTH = window.innerWidth * xScale, SCREEN_HEIGHT = window.innerHeight,
+                windowHalfX = SCREEN_WIDTH / 2, windowHalfY = SCREEN_HEIGHT / 2, mouseX = 0, mouseY = 0,
+                container, camera, scene, renderer, group, lut;
+
+        let lights = [];
+
+        function init() {
+            // !!!!!!!!!!!!
+            // You can change this range for color lut
+            lut = getLut(19.0, 21.0);   // getLut( min_temperature, max_temperature);
+            let light_intensity = 0.4;
+
+            container = document.getElementById('egg');
+
+            camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight * xScale, 1, 3000);
+            // camera.position.y = 600;
+            camera.position.z = 1200;
+
+            scene = new THREE.Scene();
+
+            {#            light = new THREE.DirectionalLight(0xffffff);#}
+            {#            light.position.set(0, 0, 1);#}
+            {#            scene.add(light);#}
+
+            group = new THREE.Group();
+            scene.add(group);
+
+            // Egg
+            let egg = buildEgg(group, 200, RENDER_LIGHT);
+            scene.add(buildShadow(250));
+
+            // Sensors
+            let sensor_locs = get_sensors_location(160);
+            // addSensorPoints(group, sensor_locs);
+
+            addBlackLights(group, sensor_locs, lights, light_intensity);
+            // console.log(lights);
+
+            // Environments
+            renderer = new THREE.CanvasRenderer();
+            renderer.setClearColor(0xeeeeee);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth * xScale, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+
+            windowHalfX = window.innerWidth / 2 * xScale;
+            windowHalfY = window.innerHeight / 2;
+
+            camera.aspect = window.innerWidth / window.innerHeight * xScale;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth * xScale, window.innerHeight);
+        }
+
+        function onDocumentMouseMove(event) {
+            mouseX = ( event.clientX - windowHalfX );
+            mouseY = ( event.clientY - windowHalfY );
+        }
+
+        //
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            render();
+        }
+
+        function render() {
+{#            camera.position.x += ( mouseX - camera.position.x ) * 0.05;#}
+{#            camera.position.y += ( -mouseY - camera.position.y ) * 0.05;#}
+            camera.lookAt(scene.position);
+
+            if (currTems) {
+                let _currTems = currTems.slice(1, 1 + 16);
+                console.log(_currTems);
+                update_temperature(lights, _currTems, lut);
+            }
+
+            if (currQauts) {
+                let _currQauts = currQauts.slice(1, 1 + 4);
+                console.log(_currQauts);
+                update_position(group, _currQauts);
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+    </script>
+    <script>
+        function updateQauts() {
+            if (currQauts) {
+                // console.log(currQauts);
+                $("#quatsTs").get(0).innerHTML = moment(currQauts[0]).fromNow();
+                $("#quats_w").get(0).innerHTML = currQauts[1].toFixed(3);
+                $("#quats_x").get(0).innerHTML = currQauts[2].toFixed(3);
+                $("#quats_y").get(0).innerHTML = currQauts[3].toFixed(3);
+                $("#quats_z").get(0).innerHTML = currQauts[4].toFixed(3);
+            }
+        }
+
+        function updateTems() {
+            if (currTems) {
+                // console.log("updateTems", currTems);
+                $("#temsTs").get(0).innerHTML = moment(currTems[0]).fromNow();
+
+                for (let i = 1; i < 18; i++) {
+                    $("#tem_" + i).get(0).innerHTML = currTems[i].toFixed(3);
+                }
+            }
+        }
+
+        function updateHum() {
+            if (currHum) {
+                // console.log("updateHum", currHum);
+                $("#humTs").get(0).innerHTML = moment(currHum[0]).fromNow();
+                $("#hum").get(0).innerHTML = currHum[1].toFixed(2);
+            }
+        }
+
+        function updateStation() {
+            if (currStation) {
+                // console.log("updateStation", currStation);
+                $("#stationTs").get(0).innerHTML = moment(currStation[0]).fromNow();
+                $("#s_hum").get(0).innerHTML = currStation[1].toFixed(2);
+                $("#s_light").get(0).innerHTML = currStation[2].toFixed(2);
+                $("#s_tem").get(0).innerHTML = currStation[3].toFixed(2);
+            }
+        }
+
+        function load_json_data() {
+            // console.log("load_json_data");
+
+            d3.json(url, function (json) {
+                let loaddata = json;
+                // console.log(loaddata);
+
+                if (loaddata.quats) {
+                    currQauts = loaddata.quats;
+                    updateQauts();
+                }
+
+                if (loaddata.tems) {
+                    currTems = loaddata.tems;
+                    updateTems();
+                }
+
+                if (loaddata.hum) {
+                    currHum = loaddata.hum;
+                    updateHum();
+                }
+
+                if (loaddata.station) {
+                    currStation = loaddata.station;
+                    updateStation();
+                }
+            });
+        }
+
+        setInterval(load_json_data, 1000);
+    </script>
+</div>
+<script src="/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eggduino -- ICBP & Microduino</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#    <meta http-equiv="refresh" content="2">#}
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="/static/jquery-3.1.1.min.js"></script>
+
+    <link href="/static/nv.d3.min.css" rel="stylesheet" type="text/css">
+    <script src="/static/d3.min.js" charset="utf-8"></script>
+    <script src="/static/nv.d3.min.js"></script>
+
+    <link rel="stylesheet" href="/static/macron.css">
+</head>
+<body>
+
+{% include 'header.html' %}
+
+<h1>Eggduino</h1>
+<p>{{ text }}</p>
+
+<script src="/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>

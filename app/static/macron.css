@@ -1,0 +1,81 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+svg {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.navbar-default {
+    margin: 0px;
+    padding: 0px;
+}
+
+#chart1 {
+    margin: 0px;
+    padding: 0px;
+    height: 90vh;
+    width: 100%;
+}
+
+#egg {
+    background-color: #eeeeee;
+}
+
+button {
+    margin: 2px;
+    margin-left: 80px;
+}
+
+.logo {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+.icon_big {
+    width: 60px;
+    height: 60px;
+}
+
+.icon_small {
+    width: 40px;
+    height: 40px;
+}
+
+.mlabel {
+    font: italic 12px sans-serif;
+    color: #8a6d3b;
+}
+
+.blue {
+    color: #2aabd2;
+}
+
+.mvalue {
+    margin: 5px;
+    font: 18px sans-serif;
+    color: #ff6666;
+}
+
+.mtitle {
+    color: #0f0f0f;
+    font: bold 32px arial;
+}
+
+.mmenu {
+    margin-left: 20px;
+    margin-top: 20px;
+    font: 24px arial;
+}
+
+.dashed {
+    stroke-dasharray: 5, 5;
+}

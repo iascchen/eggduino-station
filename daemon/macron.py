@@ -41,7 +41,7 @@ CMD_H_STOP = 'AB0200'
 CMD_Q_STOP = 'AB0300'
 CMD_S_STOP = 'AB0400'
 
-ser = serial.Serial("/dev/tty.usbserial-A900gdlX", 9600)
+ser = serial.Serial("/dev/tty.usbserial-A800H5W2", 9600)
 # ser = serial.Serial('/dev/ttyMFD1', 9600)
 
 cmds_send_interval = 1

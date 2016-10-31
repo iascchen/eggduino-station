@@ -194,6 +194,11 @@ Start daemon as backend.
     
 #### -c/--cmds The Commands 
 
+**IMPORTANT** If you want to change the data interval, you should send stop before start. for example: 
+
+    ab0100 (press enter) 
+    ab010101 (press enter) 
+
 Stop notification
 
 * ab0100 / AB0100 : Stop temperature notification of eggduino
@@ -210,7 +215,7 @@ Start notification with default interval
 
 Start notification with setting interval
 
-* ab0101nn / AB0101nn : Start temperature notification with setting interval, for example : set interval 20s should send ab010114
+* ab0101nn / AB0101nn : Start temperature notification with setting interval, for example : set interval 20s should send ab010114. According the LM75 sensor is slow, only return 1 temperature per second, so if you send `ab010101`, the temperature return interval will be about 16s
 * ab0201nn / AB0201nn : Start humidity notification with setting interval, for example : set interval 5s should send ab020105
 * ab0301nn / AB0301nn : Start quaternions notification with setting interval, for example : set interval 2s should send ab030102
 * ab0401nn / AB0401nn : Start station notification with setting interval, for example : set interval 15s should send ab04010f

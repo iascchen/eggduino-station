@@ -32,10 +32,10 @@ CMD_H = 'AB0201'
 CMD_Q = 'AB0301'
 CMD_S = 'AB0401'
 
-CMD_T_MIN = 'AB010114'
-CMD_H_MIN = 'AB020105'
-CMD_Q_MIN = 'AB030102'
-CMD_S_MIN = 'AB040105'
+# CMD_T_MIN = 'AB010101'       # interval 1s and get data 16s, it will be about 20s return 1 record
+# CMD_H_MIN = 'AB020105'
+# CMD_Q_MIN = 'AB030102'
+# CMD_S_MIN = 'AB040105'
 
 CMD_T_STOP = 'AB0100'
 CMD_H_STOP = 'AB0200'
@@ -52,11 +52,7 @@ ser = serial.Serial(uart.getDevicePath(), 9600)
 cmds_send_interval = 1
 msg_wait_interval = 0.1
 
-init_cmds = [CMD_T_STOP, CMD_H_STOP, CMD_Q_STOP, CMD_T, CMD_H, CMD_Q]
-# init_cmds = [CMD_T_STOP, CMD_H_STOP, CMD_Q_STOP, CMD_T_MIN, CMD_H_MIN, CMD_Q_MIN]
-# init_cmds = [CMD_T_STOP, CMD_T]
-# init_cmds = [CMD_Q_STOP, CMD_Q]
-# init_cmds = [CMD_H_STOP, CMD_H]
+init_cmds = [CMD_T_STOP, CMD_H_STOP, CMD_Q_STOP, CMD_S_STOP, CMD_T, CMD_H, CMD_Q, CMD_S]
 
 ##########################
 # Const

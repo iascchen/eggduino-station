@@ -145,7 +145,9 @@ The source code and data are stored on SD Card.
     README.md       ----->   Please read this file firstly
 
     
-### Run Web Server
+### Web Server
+
+#### Run Server
 
 You can start the server by `python manage.py runserver`, you can access the server with http://ip_address:5000
 
@@ -173,7 +175,7 @@ Run Web Server as backend. You can use the shell `./start_server.sh`
     
     root@eggduino:/media/sdcard/mAcron-egg# tail -f nohup.out
     
-Stop backend Server
+Stop backend running Server
 
     root@eggduino:/media/sdcard/mAcron-egg# ps -ef | grep python
       501 67739     1   0  2:40PM ttys002    0:00.22 python manage.py runserver
@@ -181,6 +183,29 @@ Stop backend Server
     root@eggduino:/media/sdcard/mAcron-egg# kill -9 67739
 
     
+#### Screen Snapshots
+
+`/Status` show the latest data send from egg and station.
+
+![docs/status_1.png](docs/status_1.png)
+![docs/status_2.png](docs/status_2.png)
+
+`/History/Temperatures` show the temperatures of egg in latest one hour.
+
+![docs/temps.png](docs/temps.png)
+
+`/History/Quaternions` show the quaternions of egg in latest one hour.
+
+![docs/quats.png](docs/quats.png)
+
+`/History/Humidity` show the humidity of egg in latest one hour.
+
+![docs/hums.png](docs/hums.png)
+
+`/History/Environment` show the data of station in latest one hour.
+
+![docs/station.png](docs/station.png)
+
 ### Run Daemon
 
 Start daemon to receive data form eggduino

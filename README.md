@@ -144,6 +144,8 @@ The source code and data are stored on SD Card.
     start_server.sh ----->   Script to run web server on BACKEND
     README.md       ----->   Please read this file firstly
 
+If you want to get the whole data, you should copy the file under folder 'db', and process it as SQLite DB file.
+There are some tools can open SQLite DB file, such as 'DB browser of SQLite' of MAC.
     
 ### Web Server
 
@@ -206,17 +208,50 @@ Stop backend running Server
 
 ![docs/station.png](docs/station.png)
 
-### Run Daemon
+### Run Daemon 
 
-Start daemon to receive data form eggduino
+#### As frontend process
+
+When you just want to test the system, you can start daemon in console, and receive data form eggduino. 
+In this mode you can interact with it by input interval command. More detail of please read the part of "Change interval when mAcron running as frontend process". 
+
+**But if you close the windows of terminal console, the daemon will be exited too**.
 
     root@eggduino:/media/sdcard/mAcron-egg# cd daemon/
     root@eggduino:/media/sdcard/mAcron-egg/daemon# ./macron.py -c ab0100,ab0200,ad0300,ab010114,ab020105,ab030102
     
-Start daemon as backend. 
+#### As backend process
 
-    root@eggduino:/media/sdcard/mAcron-egg/daemon# nohup ./macron.py -c ab0100,ab0200,ad0300,ab010114,ab020105,ab030102 &
+When you need to let the station collect data continuously, even after you close the terminal console. More detail of command, please read the part of "-c/--cmds The Commands"
+
+You should:
+
+1. Start the daemon as backend. The example show : stop all data push with `ab0100,ab0200,ad0300,ad0400,`, and start data intervals as : temperature 20s(Hex 14), humidity 5s(Hex 05), quaternions 2s(Hex 02), station 20s(Hex 14)
     
+        root@eggduino:/media/sdcard/mAcron-egg/daemon# nohup ./macron.py -c ab0100,ab0200,ad0300,ad0400,ab010114,ab020105,ab030102,ab040114 &
+
+2. Check the output information is correct, can use `tail` command as follow, and use `Ctrl+C` exit tail display
+
+        root@eggduino:/media/sdcard/mAcron-egg/daemon# tail -f nohup.out 
+    
+3. Disconnect the console terminal and leave. 
+
+In this mode, if you want change data interval, you **MUST** kill old process and restart new backend daemon with new interval value.
+
+You should:
+    
+1. Check the process id of mAcron daemon
+
+        root@eggduino:/media/sdcard/mAcron-egg/daemon# ps -ef | grep macron
+    
+2. `kill` old process as follow. The XXXX is process id of the daemon. (If you don't understand what i am talking ,you can ask somebody known linux, or goolge ps and kill command of linux)
+
+        root@eggduino:/media/sdcard/mAcron-egg/daemon# kill -9 XXXX
+        
+3. Restart daemon. The example start intervals as : temperature 40s(Hex 28), humidity 20s(Hex 14), quaternions 10s(Hex 0a), station 40s(Hex 28)
+    
+        root@eggduino:/media/sdcard/mAcron-egg/daemon# nohup ./macron.py -c ab0100,ab0200,ad0300,ad0400,ab010128,ab020114,ab03010a,ab040128 &
+
 #### -c/--cmds The Commands 
 
 **IMPORTANT** If you want to change the data interval, you should send stop before start. for example: 
@@ -247,7 +282,7 @@ Start notification with setting interval
 
 **nn** is the hex value of seconds. for example : if you want to set interval as `10` seconds, the **nn** should be `0a`
 
-#### Change interval when mAcron running
+#### Change interval when mAcron running as frontend process
 
 When mAcron is running, you can input interval command
 

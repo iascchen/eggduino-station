@@ -248,9 +248,9 @@ You should:
 
         root@eggduino:/media/sdcard/mAcron-egg/daemon# kill -9 XXXX
         
-3. Restart daemon. The example start intervals as : temperature 40s(Hex 28), humidity 20s(Hex 14), quaternions 10s(Hex 0a), station 40s(Hex 28)
+3. Restart daemon. The example start intervals as : temperature 40s(Hex 28), humidity 20s(Hex 14), quaternions 10ms(Hex 0a), station 40s(Hex 28)
     
-        root@eggduino:/media/sdcard/mAcron-egg/daemon# nohup ./macron.py -c ab0100,ab0200,ad0300,ad0400,ab010128,ab020114,ab03010a,ab040128 &
+        root@eggduino:/media/sdcard/mAcron-egg/daemon# nohup ./macron.py -c ab0100,ab0200,ad0300,ad0400,ab010128,ab020114,ab0301000a,ab040128 &
 
 #### -c/--cmds The Commands 
 
@@ -277,10 +277,19 @@ Start notification with setting interval
 
 * ab0101nn / AB0101nn : Start temperature notification with setting interval, for example : set interval 20s should send ab010114. According the LM75 sensor is slow, only return 1 temperature per second, so if you send `ab010101`, the temperature return interval will be about 16s
 * ab0201nn / AB0201nn : Start humidity notification with setting interval, for example : set interval 5s should send ab020105
-* ab0301nn / AB0301nn : Start quaternions notification with setting interval, for example : set interval 2s should send ab030102
+* ab0301nnnn / AB0301nnnn : Start quaternions notification with setting interval, the unit is **micro seconds**, for example : set interval 2ms should send ab03010002. 
 * ab0401nn / AB0401nn : Start station notification with setting interval, for example : set interval 15s should send ab04010f
 
 **nn** is the hex value of seconds. for example : if you want to set interval as `10` seconds, the **nn** should be `0a`
+**nnnn** is the hex value of **micro seconds**. for example : if you want to set interval as `10` micro seconds, the **nnnn** should be `000a`
+
+    // AB03010001 -- start, interval is 1ms;
+    // AB03010064 -- start, interval is 100ms;
+    // AB0301012C -- start, interval is 300ms;
+    // AB03010384 -- start, interval is 900ms;
+    // AB03010BB8 -- start, interval is 3000ms;
+    // AB03011388 -- start, interval is 5000ms;
+    // AB03012710 -- start, interval is 10000ms;
 
 #### Change interval when mAcron running as frontend process
 

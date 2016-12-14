@@ -265,26 +265,26 @@ Stop notification
 
 * ab0100 / AB0100 : Stop temperature notification of eggduino
 * ab0200 / AB0200 : Stop humidity notification of eggduino
-* ab0300 / AB0300 : Stop quaternions notification of eggduino
+* ab0300 / AB0300 : Stop mpu6050 measurement of eggduino
 * ab0400 / AB0400 : Stop station notification
 
 Start notification with default interval
 
 * ab0101 / AB0101 : Start temperature notification with default interval, 20s. its minimal value is 20s
 * ab0201 / AB0201 : Start humidity notification with default interval, 70s. its minimal value is 5s
-* ab0301 / AB0301 : Start quaternions notification with default interval, 2s. its minimal value is 2s
+* ab0301 / AB0301 : Start mpu6050 and measurement period is the default interval, 2s. 
 * ab0401 / AB0401 : Start station notification with default interval, 5s. its minimal value is 2s
 
 Start notification with setting interval
 
-* ab0101nn / AB0101nn : Start temperature notification with setting interval, for example : set interval 20s should send ab010114. According the LM75 sensor is slow, only return 1 temperature per second, so if you send `ab010101`, the temperature return interval will be about 16s
-* ab0201nn / AB0201nn : Start humidity notification with setting interval, for example : set interval 5s should send ab020105
-* ab0301nnnn / AB0301nnnn : Start quaternions notification with setting interval, the unit is **millis seconds**, for example : set interval 2ms should send ab03010002. 
-* ab0401nn / AB0401nn : Start station notification with setting interval, for example : set interval 15s should send ab04010f
+* ab0101nn / AB0101nn : Start temperature notification with setting interval, for example : set interval as 20s should send ab010114. According the LM75 sensor is slow, only return 1 temperature per second, so if you send `ab010101`, the temperature return interval will be about 16s
+* ab0201nn / AB0201nn : Start humidity notification with setting interval, for example : set interval as 5s should send ab020105
+* ab0301nnnn / AB0301nnnn : Start quaternions notification with setting interval, the unit is **millis seconds**, for example : set interval as 2ms should send ab03010002. 
+* ab0401nn / AB0401nn : Start station notification with setting interval, for example : set interval as 15s should send ab04010f
 
-**nn** is the hex value of seconds. for example : if you want to set interval as `10` seconds, the **nn** should be `0a`
+**nn** is the hex value of seconds. for example : if you want to set interval as `10` seconds, set **nn** as `0a`
 
-**nnnn** is the hex value of **millis seconds**. for example : if you want to set interval as `10` micro seconds, the **nnnn** should be `000a`
+**nnnn** is the hex value of **millis seconds**. for example : if you want to set interval as `10` micro seconds, set **nnnn** as `000a`
 
     // AB03010001 -- start, interval is 1ms;
     // AB03010064 -- start, interval is 100ms;

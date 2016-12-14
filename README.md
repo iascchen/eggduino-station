@@ -283,6 +283,7 @@ Start notification with setting interval
 * ab0401nn / AB0401nn : Start station notification with setting interval, for example : set interval 15s should send ab04010f
 
 **nn** is the hex value of seconds. for example : if you want to set interval as `10` seconds, the **nn** should be `0a`
+
 **nnnn** is the hex value of **micro seconds**. for example : if you want to set interval as `10` micro seconds, the **nnnn** should be `000a`
 
     // AB03010001 -- start, interval is 1ms;

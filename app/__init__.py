@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, g
+from flask_wtf.csrf import CsrfProtect
 import sqlite3
 import time
 
 app = Flask(__name__)
 
-app.config.from_object("config")
+app.config.from_object('config')
 
+CsrfProtect(app)
 
 ###################
 # DB Init
@@ -61,4 +63,4 @@ init_db()
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
-from app import views, models
+from app import views, models, forms

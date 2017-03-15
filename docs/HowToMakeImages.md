@@ -1,3 +1,7 @@
+# This File is Depreciated
+
+Raspberry Pi Zero version should work with latest code version.
+
 # How to make Eggduino mAcron Environment
 
 This file just record some steps of make the eggduino mAcron environment.

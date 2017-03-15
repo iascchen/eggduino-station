@@ -1,10 +1,14 @@
 from time import sleep
 
-import mraa
 import serial
 
-uart = mraa.Uart(0)
-ser = serial.Serial(uart.getDevicePath(), 9600)
+# Edison
+# import mraa
+# uart = mraa.Uart(0)
+# ser = serial.Serial(uart.getDevicePath(), 9600)
+
+# RaspPi Zero
+ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 # > stty -F /dev/ttyMFD1
 # speed 9600 baud; line = 0;

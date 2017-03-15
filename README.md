@@ -284,7 +284,7 @@ Start notification with setting interval
 
 **nn** is the hex value of seconds. for example : if you want to set interval as `10` seconds, set **nn** as `0a`
 
-**nnnn** is the hex value of **millis seconds**. for example : if you want to set interval as `10` micro seconds, set **nnnn** as `000a`
+**nnnn** is the hex value of **millis seconds**. for example : if you want to set interval as `10` millis seconds, set **nnnn** as `000a`
 
     // AB03010001 -- start, interval is 1ms;
     // AB03010064 -- start, interval is 100ms;

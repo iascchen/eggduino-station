@@ -1,19 +1,22 @@
-#!/usr/bin/python
+#!/usr/bin/python -u
 # -*- coding: utf-8 -*-
 
 from time import time, sleep
 import sqlite3
-import mraa
 import serial
 import struct
 import argparse
 import thread
+import datetime
+
+# import mraa
 
 ##########################
 # Parse input params
 ##########################
 
-parser = argparse.ArgumentParser(description='Example : AB0100,AB0200,AB0300,AB0400,AB01010f,AB020105,AB03010384,AB040105')
+parser = argparse.ArgumentParser(
+    description='Example : AB0100,AB0200,AB0300,AB0400,AB01010f,AB020105,AB03010384,AB040105')
 parser.add_argument('-c', '--cmds', help='delimited list input', type=str)
 args = parser.parse_args()
 
@@ -31,6 +34,7 @@ CMD_T = 'AB0101'
 CMD_H = 'AB0201'
 CMD_Q = 'AB0301'
 CMD_S = 'AB0401'
+CMD_RTC = 'AB05'
 
 # CMD_T_MIN = 'AB010101'       # interval 1s and get data 16s, it will be about 20s return 1 record
 # CMD_H_MIN = 'AB020105'
@@ -45,9 +49,10 @@ CMD_S_STOP = 'AB0400'
 # ser = serial.Serial("/dev/tty.usbserial-A402EXKV", 9600)
 # ser = serial.Serial("/dev/tty.usbserial-A800H5W2", 9600)
 
-uart = mraa.Uart(0)
-print uart.getDevicePath()
-ser = serial.Serial(uart.getDevicePath(), 9600)
+# uart = mraa.Uart(0)
+# print uart.getDevicePath()
+# ser = serial.Serial(uart.getDevicePath(), 9600)
+ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 cmds_send_interval = 1
 msg_wait_interval = 0.1
@@ -96,6 +101,24 @@ INSERT_STATION = '''INSERT INTO messages (ts, hum_s, light_s, temp_s) VALUES (?,
 ##########################
 
 current_milli_time = lambda: int(round(time() * 1000))
+
+
+def int_to_hexstr(value):
+    return '{:02x}'.format(value)
+
+
+def utc_string():
+    now = datetime.datetime.utcnow()
+
+    year = int_to_hexstr(now.year - 2000)
+    month = int_to_hexstr(now.month)
+    day = int_to_hexstr(now.day)
+    hour = int_to_hexstr(now.hour)
+    minute = int_to_hexstr(now.minute)
+    second = int_to_hexstr(now.second)
+    weekday = int_to_hexstr(now.weekday())
+
+    return year + month + weekday + day + hour + minute + second
 
 
 def hex_to_quat(hex_str):

@@ -2,13 +2,17 @@
 
 from time import sleep
 
-import mraa
-import serial
 import time, readline, thread, sys
 
-uart = mraa.Uart(0)
-ser = serial.Serial(uart.getDevicePath(), 9600)
+import serial
 
+# Edison
+# import mraa
+# uart = mraa.Uart(0)
+# ser = serial.Serial(uart.getDevicePath(), 9600)
+
+# RaspPi Zero
+ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 def noisy_thread():
     while True:

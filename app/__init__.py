@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, g
-from flask_wtf.csrf import CsrfProtect
+from flask_wtf.csrf import CSRFProtect
 import sqlite3
 import time
 
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config.from_object('config')
 
-CsrfProtect(app)
+CSRFProtect(app)
 
 ###################
 # DB Init

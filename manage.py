@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask.ext.script import Manager, Server
+from flask_script import Manager, Server
 from app import app
 
 manager = Manager(app)

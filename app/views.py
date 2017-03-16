@@ -217,12 +217,17 @@ def show_table():
 # Admin Setting
 ###################################
 
+@app.route("/curr_time")
+def curr_time():
+    now = datetime.datetime.now()
+    ret = {'now': str(now)}
+    return json.dumps(ret)
+
+
 @app.route('/time')
 def server_time():
     msg = request.args.get('msg')
-    print msg
-    now = datetime.datetime.now()
-    return render_template("time.html", server_time=now, msg=msg)
+    return render_template("time.html", msg=msg)
 
 
 @app.route('/sync_time')

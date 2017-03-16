@@ -233,9 +233,5 @@ def show_data():
 thread.start_new_thread(show_data, ())
 
 while True:
-    cmd = raw_input('> ').upper()
-    if len(cmd) > 0:
-        print '\n\t==> command sending :', cmd, "\n"
-
-        ser.write(cmd + '\n')
-        sleep(cmds_send_interval)
+    print ".\n"
+    sleep(cmds_send_interval)

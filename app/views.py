@@ -21,10 +21,10 @@ CMD_Q = 'AB0301'
 CMD_S = 'AB0401'
 CMD_RTC = 'AB05'
 
-# TIME_SYNC_SHELL = './daemon/sync_time.py'
-TIME_SYNC_SHELL = './daemon/test_python.py'
-# MACRON_SHELL = './daemon/macron_daemon.py'
-MACRON_SHELL = './daemon/test_python.py'
+TIME_SYNC_SHELL = './daemon/sync_time.py'
+# TIME_SYNC_SHELL = './daemon/test_python.py'
+MACRON_SHELL = './daemon/macron_daemon.py'
+# MACRON_SHELL = './daemon/test_python.py'
 
 macron_pid = None
 
@@ -68,7 +68,7 @@ def compose_eggduino_cmd(tem, hum, mov, env):
     # nohup ./deamon/macron.py -c ab0100, ab0200, ad0300, ad0400, ab010128, ab020114, ab0301000a, ab040128 &
 
     # return ['nohup', MACRON_SHELL, '-c', ",".join(init_cmds), '&']
-    return ['nohup', MACRON_SHELL, '-c', ",".join(init_cmds)]
+    return [MACRON_SHELL, '-c', ",".join(init_cmds)]
 
 
 def process_exist(process_name):
@@ -258,7 +258,7 @@ def apply_interval():
                                    form.mov_interval.data, form.env_interval.data)
         print cmd
 
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(cmd, stdout=open('nohup.out', 'w'), stderr=open('logfile.log', 'a'))
         print "pid : ", p.pid
         # out, err = p.communicate()
 

@@ -29,9 +29,11 @@
             <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Sync Time
         </a>
     </div>
-    <div class="col-xs-12 col-sm-12">
-        {{ output }}
-    </div>
+    {% if msg %}
+        <div class="col-xs-12 col-sm-12">
+            <pre>{{ msg }}</pre>
+        </div>
+    {% endif %}
 </div>
 
 <script src="/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>

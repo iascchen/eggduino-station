@@ -101,7 +101,7 @@ https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberry-pi-as-a-wifi
     sudo apt-get upgrade
     
     sudo apt-get install python-simplejson python-pip sqlite3
-    pip install pyserial ntplib
+    pip install pyserial ntplib flask_script flask_wtf
     
 [SQLite3 Reference](https://iotbytes.wordpress.com/sqlite-db-on-raspberry-pi/)
 

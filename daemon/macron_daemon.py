@@ -140,7 +140,7 @@ def hex_to_tem(hex_str):
 
 
 def dispatch_messages(msg):
-    conn = sqlite3.connect('../db/database.db')
+    conn = sqlite3.connect('./db/database.db')
 
     print msg
 

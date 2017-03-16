@@ -7,6 +7,7 @@ import json
 import subprocess
 import datetime
 import re
+from urllib import quote
 
 history_period = 1 * 3600 * 1000  # 1 hour
 
@@ -218,8 +219,10 @@ def show_table():
 
 @app.route('/time')
 def server_time():
+    msg = request.args.get('msg')
+    print msg
     now = datetime.datetime.now()
-    return render_template("time.html", server_time=now)
+    return render_template("time.html", server_time=now, msg=msg)
 
 
 @app.route('/sync_time')
@@ -228,9 +231,9 @@ def sync_time():
 
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
-    # print "pid : ", p.pid
-    now = datetime.datetime.now()
-    return render_template("time.html", server_time=now, output=out)
+
+    url = "/time?msg={0}".format(quote(out))
+    return redirect(url, code=302)
 
 
 @app.route('/interval')

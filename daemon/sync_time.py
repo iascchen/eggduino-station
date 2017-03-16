@@ -86,16 +86,22 @@ print "\tRTC : ", fetch_rtc()
 
 try:
     now = utp_time()
-    print "USE UTP : ", now
+    print "Use UTP : ", now
     # print "UTP", utc_string_for_ab05(now)
     set_rtc(now)
     set_sys_datetime(now)
+
+    print "After TimeSync : "
+    print "\tSYS : ", datetime.datetime.now()
+    print "\tUTP : ", utp_time()
+    print "\tRTC : ", fetch_rtc()
+
 except:
     now = fetch_rtc()
-    print "USE RTC : ", now
+    print "Use RTC : ", now
     set_sys_datetime(now)
 
-print "After TimeSync : "
-print "\tSYS : ", datetime.datetime.now()
-print "\tUTP : ", utp_time()
-print "\tRTC : ", fetch_rtc()
+    print "After TimeSync : "
+    print "\tSYS : ", datetime.datetime.now()
+    print "\tRTC : ", fetch_rtc()
+

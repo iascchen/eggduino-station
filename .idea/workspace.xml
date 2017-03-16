@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d07601a-e076-43ff-b832-ddeae9741674" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/time.html" afterPath="$PROJECT_DIR$/app/templates/time.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon/macron_daemon.py" afterPath="$PROJECT_DIR$/daemon/macron_daemon.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/HowToMakeImages_raspi.md" afterPath="$PROJECT_DIR$/docs/HowToMakeImages_raspi.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon/sync_time.py" afterPath="$PROJECT_DIR$/daemon/sync_time.py" />
     </list>
     <ignored path="eggduino-station.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +38,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+            <state relative-caret-position="52">
+              <caret line="232" column="30" selection-start-line="232" selection-start-column="30" selection-end-line="232" selection-end-column="30" />
               <folding>
                 <element signature="e#26#88#0" expanded="true" />
                 <element signature="e#1767#2253#0" expanded="false" />
@@ -94,8 +92,8 @@
       <file leaf-file-name="sync_time.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/daemon/sync_time.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state relative-caret-position="127">
+              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -171,7 +169,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
-        <option value="$PROJECT_DIR$/daemon/sync_time.py" />
         <option value="$PROJECT_DIR$/daemon/test_time.py" />
         <option value="$PROJECT_DIR$/daemon/macron.py" />
         <option value="$PROJECT_DIR$/daemon/test_python.py" />
@@ -183,6 +180,7 @@
         <option value="$PROJECT_DIR$/docs/HowToMakeImages_raspi.md" />
         <option value="$PROJECT_DIR$/daemon/macron_daemon.py" />
         <option value="$PROJECT_DIR$/app/templates/time.html" />
+        <option value="$PROJECT_DIR$/daemon/sync_time.py" />
         <option value="$PROJECT_DIR$/app/views.py" />
       </list>
     </option>
@@ -1017,14 +1015,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/daemon/sync_time.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/time.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -1046,10 +1036,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/daemon/sync_time.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+        <state relative-caret-position="52">
+          <caret line="232" column="30" selection-start-line="232" selection-start-column="30" selection-end-line="232" selection-end-column="30" />
           <folding>
             <element signature="e#26#88#0" expanded="true" />
             <element signature="e#1767#2253#0" expanded="false" />

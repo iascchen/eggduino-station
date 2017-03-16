@@ -13,7 +13,7 @@ class IntervalForm(FlaskForm):
     hidden_pid = HiddenField('Hidden ID')
 
     # def validate(self):
-    #     if not Form.validate(self):
+    #     if not FlaskForm.validate(self):
     #         print 'Optional Form Errors: {0}'.format(self.errors)
     #         return False
     #
@@ -26,10 +26,10 @@ class PidForm(FlaskForm):
     pid = StringField('Process ID',
                       validators=[InputRequired(), EqualTo('hidden_pid', message='Must same with the process_id')])
 
-    def validate(self):
-        if not Form.validate(self):
-            print 'Optional Form Errors: {0}'.format(self.errors)
-            return False
-
-        print 'Optional Form Errors: {0}'.format(self.errors)
-        return True
+    # def validate(self):
+    #     if not FlaskForm.validate(self):
+    #         print 'Optional Form Errors: {0}'.format(self.errors)
+    #         return False
+    #
+    #     print 'Optional Form Errors: {0}'.format(self.errors)
+    #     return True

@@ -1,6 +1,12 @@
 {
-    "temRenderRange": [
-        22, 
-        78
-    ]
+  "runningMode": "-s", 
+  "temInterval": 20, 
+  "movInterval": 2000, 
+  "temRenderRange": [
+    22, 
+    91
+  ], 
+  "envInterval": 2, 
+  "humInterval": 70, 
+  "schedules": "################# Start comments #################\r\n# each line is a task\r\n# line start wirh '#' is comments\r\n# the command line format as follow\r\n# 'nn' and 'nnnn' are hex\r\n# sleep_seconds is normal integer\r\n################# End comments #################\r\n\r\n# ab0101nn,ab0201nn,ab0301nnnn,ab0401nn:sleep_seconds\r\nab0401,ab0201,ab0301,ab0401:20\r\nab040120,ab020120,ab03012000,ab040120:10000\r\n# ab040120,ab020120,ab03012000,ab040120:10000\r\nab040130,ab020130,ab03013000,ab040130:50000\r\n    "
 }

@@ -20,18 +20,18 @@ import serial
 parser = argparse.ArgumentParser(
     description='Example : AB0100,AB0200,AB0300,AB0400,AB01010f,AB020105,AB03010384,AB040105')
 parser.add_argument('-c', '--cmds', help='delimited list input', type=str)
-parser.add_argument('-s', '--schedules', help='schedules', type=str)
+parser.add_argument('-s', '--schedules', help='delimited list input', type=str)
 args = parser.parse_args()
-
-# print(args)
 
 if args.cmds is None:
     args.cmds = ''
+# print(args)
 
 params_cmds_list = args.cmds.upper().split(',')
 
 if args.schedules is None:
     args.schedules = ''
+# print(args)
 
 params_schedules = args.schedules.upper().strip()
 
@@ -61,6 +61,7 @@ CMD_S_STOP = 'AB0400'
 # uart = mraa.Uart(0)
 # print uart.getDevicePath()
 # ser = serial.Serial(uart.getDevicePath(), 9600)
+
 ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 cmds_send_interval = 1
@@ -213,8 +214,8 @@ def start_egg_notify(cmds):
     print "==> Start Egg Notification ..."
 
     for cmd in cmds:
-        print '\t==> command sending :', cmd
-        ser.write(cmd + '\n')
+        print '\t==> command sending :', cmd.strip()
+        ser.write(cmd.strip() + '\n')
         sleep(cmds_send_interval)
 
 
@@ -266,7 +267,15 @@ def show_data():
         dispatch_messages(msg)
 
         if msg == '436F6E6E65637465640D0A':  # Connected
-            start_egg_notify(init_cmds)
+            # start_egg_notify(init_cmds)
+
+            if params_cmds_list != ['']:
+                init_cmds = params_cmds_list
+                start_egg_notify(init_cmds)
+
+            # TODO ： Need Test. If uncomment these sentense, maybe have two thread of run schedules
+            # if params_schedules != '':
+            #     thread.start_new_thread(load_schedules, (params_schedules,))
 
         sleep(msg_wait_interval)  # Delay for one tenth of a second
 

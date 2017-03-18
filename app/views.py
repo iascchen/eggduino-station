@@ -83,6 +83,10 @@ def compose_eggduino_cmd(tem, hum, mov, env):
     return [MACRON_SHELL, '-c', ",".join(init_cmds)]
 
 
+def compose_eggduino_schedules_cmd(schedules):
+    return [MACRON_SHELL, '-s', schedules]
+
+
 def process_exist(process_name):
     cmd_ps = ['ps', 'aux']
     cmd_grep = ['grep', process_name]
@@ -108,19 +112,27 @@ def process_kill(pid):
     p.wait()
 
 
-def load_tem_render_setting():
-    # min = 0
-    # max = 100
-
-    with open(SETTING_JSON, 'r') as f:
+def load_setting(key, default_value):
+    try:
         global setting
-        setting = json.load(f)
-        _range = setting['temRenderRange']
+        if setting == {}:
+            with open(SETTING_JSON, 'r') as f:
+                global setting
+                setting = json.load(f)
+                f.close()
+
+        _v = setting[key]
+        if _v:
+            return _v
+    except:
+        return default_value
+
+
+def save_setting(key, value):
+    with open(SETTING_JSON, 'w') as f:
+        setting[key] = value
+        json.dump(setting, f, indent=2)
         f.close()
-        if _range:
-            return _range
-        else:
-            return [0, 100]
 
 
 def datetime2timestamp(dt):
@@ -129,7 +141,7 @@ def datetime2timestamp(dt):
 
 @app.route('/')
 def index():
-    tem_render = load_tem_render_setting()
+    tem_render = load_setting('temRenderRange', [0, 100])
 
     return render_template("curr_status.html", tem_render=tem_render)
 
@@ -178,7 +190,7 @@ def egg_tems_charts():
     to_ts = current_milli_time()
     from_ts = to_ts - history_period
 
-    tem_render = load_tem_render_setting()
+    tem_render = load_setting('temRenderRange', [0, 100])
 
     # print from_ts, to_ts
 
@@ -259,10 +271,10 @@ def curr_time():
     return json.dumps(ret)
 
 
-@app.route('/time')
-def server_time():
+@app.route('/page_time')
+def time_page():
     msg = request.args.get('msg')
-    return render_template("time.html", msg=msg)
+    return render_template("page_time.html", msg=msg)
 
 
 @app.route('/sync_time')
@@ -272,21 +284,50 @@ def sync_time():
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = p.communicate()
 
-    url = "/time?msg={0}".format(quote(out))
+    url = "/page_time?msg={0}".format(quote(out))
     return redirect(url, code=302)
 
 
-@app.route('/interval')
-def interval():
+@app.route('/page_daemon')
+def daemon_page():
     form_stop = forms.PidForm(request.form)
-    form = forms.IntervalForm(request.form)
+    form_interval = forms.IntervalForm(request.form)
+    form_schedules = forms.SchedulesForm(request.form)
 
     global macron_pid
     macron_pid = process_exist(MACRON_SHELL)
     form_stop.hidden_pid.data = macron_pid
-    form.hidden_pid.data = macron_pid
+    form_interval.hidden_pid.data = macron_pid
+    form_schedules.hidden_pid.data = macron_pid
 
-    return render_template("interval.html", form=form, form_stop=form_stop, pid=macron_pid)
+    scheduls_demo = '''
+################# Start comments #################
+# each line is a task
+# line start wirh '#' is comments
+# the command line format as follow
+# 'nn' and 'nnnn' are hex
+# sleep_seconds is normal integer
+################# End comments #################
+
+# ab0101nn,ab0201nn,ab0301nnnn,ab0401nn:sleep_seconds
+ab0401,ab0201,ab0301,ab0401:20
+ab040120,ab020120,ab03012000,ab040120:10000
+# ab040120,ab020120,ab03012000,ab040120:10000
+ab040130,ab020130,ab03013000,ab040130:50000
+    '''
+    form_schedules.schedules.data = scheduls_demo
+
+    running_mode = load_setting('runningMode', None)
+    form_interval.tem_interval.data = load_setting('temInterval', 20)
+    form_interval.hum_interval.data = load_setting('humInterval', 70)
+    form_interval.mov_interval.data = load_setting('movInterval', 2000)
+    form_interval.env_interval.data = load_setting('envInterval', 2)
+
+    form_schedules.schedules.data = load_setting('schedules', scheduls_demo)
+
+    return render_template("page_daemon.html", form_interval=form_interval, form_stop=form_stop,
+                           form_schedules=form_schedules,
+                           pid=macron_pid, mode=running_mode)
 
 
 @app.route('/apply_interval', methods=['POST'])
@@ -294,6 +335,13 @@ def apply_interval():
     form = forms.IntervalForm(request.form)
 
     if request.method == 'POST' and form.validate():
+
+        save_setting('runningMode', "-c")
+        save_setting('temInterval', form.tem_interval.data)
+        save_setting('humInterval', form.hum_interval.data)
+        save_setting('movInterval', form.mov_interval.data)
+        save_setting('envInterval', form.env_interval.data)
+
         if form.hidden_pid.data:
             process_kill(form.hidden_pid.data)
 
@@ -304,9 +352,32 @@ def apply_interval():
         p = subprocess.Popen(cmd, stdout=open('nohup.out', 'w'), stderr=open('logfile.log', 'a'))
         print "pid : ", p.pid
 
-        return redirect("/interval", code=302)
+        return redirect("/page_daemon", code=302)
     else:
-        return render_template('interval.html', form=form)
+        return render_template('page_daemon.html', form=form)
+
+
+@app.route('/apply_schedules', methods=['POST'])
+def apply_schedules():
+    form = forms.SchedulesForm(request.form)
+
+    if request.method == 'POST' and form.validate():
+
+        save_setting('runningMode', "-s")
+        save_setting('schedules', form.schedules.data)
+
+        if form.hidden_pid.data:
+            process_kill(form.hidden_pid.data)
+
+        cmd = compose_eggduino_schedules_cmd(form.schedules.data)
+        print cmd
+
+        p = subprocess.Popen(cmd, stdout=open('nohup.out', 'w'), stderr=open('logfile.log', 'a'))
+        print "pid : ", p.pid
+
+        return redirect("/page_daemon", code=302)
+    else:
+        return render_template('page_daemon.html', form=form)
 
 
 @app.route('/stop_daemon', methods=['POST'])
@@ -316,15 +387,15 @@ def stop_daemon():
     if request.method == 'POST' and form_stop.validate():
         process_kill(form_stop.pid.data)
 
-    return redirect("/interval", code=302)
+    return redirect("/page_daemon", code=302)
 
 
-@app.route('/data_page')
+@app.route('/page_data')
 def data_page():
     form_render = forms.DataRenderForm(request.form)
     form_download = forms.DataDownloadForm(request.form)
 
-    tem_render = load_tem_render_setting()
+    tem_render = load_setting('temRenderRange', [0, 100])
     form_render.tem_range.data = tem_render
     # print form_render.tem_range.data
 
@@ -332,7 +403,7 @@ def data_page():
     temp_min = 0
     temp_max = 100
 
-    return render_template("data_page.html", form_render=form_render, form_download=form_download, msg=msg,
+    return render_template("page_data.html", form_render=form_render, form_download=form_download, msg=msg,
                            temp_min=temp_min, temp_max=temp_max)
 
 
@@ -364,12 +435,9 @@ def save_render():
 
         print _min, _max
 
-        with open(SETTING_JSON, 'w') as f:
-            setting['temRenderRange'] = [_min, _max]
-            json.dump(setting, f, indent=2)
-            f.close()
+        save_setting('temRenderRange', [_min, _max])
 
-    return redirect("/data_page", code=302)
+    return redirect("/page_data", code=302)
 
 
 @app.route('/export_data', methods=['POST'])
@@ -416,7 +484,7 @@ def export_data():
         elif _act == "cloud":
             pass  # TODO implement to upload date to mCotton
 
-    url = "/data_page?msg={0}".format(quote(msg))
+    url = "/page_data?msg={0}".format(quote(msg))
     return redirect(url, code=302)
 
 
@@ -426,5 +494,5 @@ def reset_db():
     get_db().commit()
 
     msg = "All data deleted!"
-    url = "/data_page?msg={0}".format(quote(msg))
+    url = "/page_data?msg={0}".format(quote(msg))
     return redirect(url, code=302)

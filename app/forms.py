@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, StringField, HiddenField
+from wtforms import IntegerField, StringField, HiddenField, TextAreaField
 from wtforms.validators import NumberRange, InputRequired, EqualTo
 
 
@@ -19,6 +19,19 @@ class IntervalForm(FlaskForm):
     #
     #     print 'Optional Form Errors: {0}'.format(self.errors)
     #     return True
+
+
+class SchedulesForm(FlaskForm):
+    hidden_pid = HiddenField('Hidden ID')
+    schedules = TextAreaField('Schedules', validators=[InputRequired()])
+
+    def validate(self):
+        if not FlaskForm.validate(self):
+            print 'Optional Form Errors: {0}'.format(self.errors)
+            return False
+
+        print 'Optional Form Errors: {0}'.format(self.errors)
+        return True
 
 
 class PidForm(FlaskForm):

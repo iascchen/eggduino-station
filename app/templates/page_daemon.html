@@ -32,7 +32,7 @@
             <form method='POST' action="/stop_daemon">
                 <div class="col-xs-12 col-sm-8">
                     <div class="col-xs-12 col-sm-12">
-                        Running process pid is {{ pid }}
+                        <pre class="label-warning">Running process PID is '{{ pid }}', MODE is '{{ mode }}'</pre>
                         {{ form_stop.hidden_tag() }}
                     </div>
                 </div>
@@ -59,19 +59,23 @@
     </div>
     <div class="col-xs-12 col-sm-12">
         <form method='POST' action="/apply_interval">
-            {{ form.hidden_tag() }}
+            {{ form_interval.hidden_tag() }}
             <div class="col-xs-12 col-sm-8">
                 <div class="col-xs-12 col-sm-12">
-                    {{ render_field(form.tem_interval, class_="form-control") }} <span class="label label-info">(20-255) seconds</span>
+                    {{ render_field(form_interval.tem_interval, class_="form-control") }} <span
+                        class="label label-info">(20-255) seconds</span>
                 </div>
                 <div class="col-xs-12 col-sm-12">
-                    {{ render_field(form.hum_interval, class_="form-control") }} <span class="label label-info">(5-255) seconds</span>
+                    {{ render_field(form_interval.hum_interval, class_="form-control") }} <span
+                        class="label label-info">(5-255) seconds</span>
                 </div>
                 <div class="col-xs-12 col-sm-12">
-                    {{ render_field(form.mov_interval, class_="form-control") }} <span class="label label-info">(300-65535) millis seconds</span>
+                    {{ render_field(form_interval.mov_interval, class_="form-control") }} <span
+                        class="label label-info">(300-65535) millis seconds</span>
                 </div>
                 <div class="col-xs-12 col-sm-12">
-                    {{ render_field(form.env_interval, class_="form-control") }} <span class="label label-info">(2-255) seconds</span>
+                    {{ render_field(form_interval.env_interval, class_="form-control") }} <span
+                        class="label label-info">(2-255) seconds</span>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4">
@@ -82,6 +86,24 @@
             </div>
         </form>
     </div>
+
+    <div class="col-xs-12 col-sm-12">
+        <h3>Schedules</h3>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+        <form method='POST' action="/apply_schedules">
+            {{ form_schedules.hidden_tag() }}
+            <div class="col-xs-12 col-sm-8">
+                {{ form_schedules.schedules(class_="form-control", rows=10)|safe }}
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <button type="submit" class="btn btn-primary" style="width: 160px">
+                    <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Run
+                </button>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 <script src="/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>

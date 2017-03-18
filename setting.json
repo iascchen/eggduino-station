@@ -1,5 +1,5 @@
 {
-  "runningMode": "-s", 
+  "runningMode": "-c", 
   "temInterval": 20, 
   "movInterval": 2000, 
   "temRenderRange": [

@@ -273,9 +273,10 @@ def show_data():
                 init_cmds = params_cmds_list
                 start_egg_notify(init_cmds)
 
-            # TODO ： Need Test. If uncomment these sentense, maybe have two thread of run schedules
-            # if params_schedules != '':
-            #     thread.start_new_thread(load_schedules, (params_schedules,))
+            if params_schedules != '':
+                # TODO ： Need Test. If uncomment these sentense, maybe have two thread of run schedules
+                # thread.start_new_thread(load_schedules, (params_schedules,))
+                pass
 
         sleep(msg_wait_interval)  # Delay for one tenth of a second
 

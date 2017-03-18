@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eggduino -- ICBP & Microduino</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#    <meta http-equiv="refresh" content="2">#}
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="/static/jquery-3.1.1.min.js"></script>
+
+    <script src="/static/moment.min.js"></script>
+
+    <link rel="stylesheet" href="/static/bootstrap-slider.min.css">
+    <script src="/static/bootstrap-slider.min.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="/static/daterangepicker.css"/>
+    <script src="/static/daterangepicker.js"></script>
+
+    <link rel="stylesheet" href="/static/macron.css">
+</head>
+<body>
+
+{% include 'header.html' %}
+
+<div class="jumbotron col-xs-12 col-sm-12">
+    <h2>Data</h2>
+    {% if msg %}
+        <div class="col-xs-12 col-sm-12">
+            <pre>{{ msg }}</pre>
+        </div>
+    {% endif %}
+
+    {% from "_formhelpers.html" import render_field %}
+
+    <div class="col-xs-12 col-sm-12">
+        <h3>Temperature Render Lut</h3>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+        <form method='POST' action="/apply_render">
+            {{ form_render.hidden_tag() }}
+
+            <div class="col-xs-12 col-sm-6">
+                <b> {{ temp_min }} </b> <span class="label label-info">&nbsp;</span>
+                <input type="text" name="tem_range" class="form-control"/>
+                <span class="label label-danger">&nbsp;</span> <b> {{ temp_max }} </b>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <button type="submit" name="act" value="save" class="btn btn-primary" style="width: 160px">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save
+                </button>
+                <button type="submit" name="act" value="auto" class="btn btn-default" style="width: 160px">
+                    <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Min-Max
+                </button>
+            </div>
+        </form>
+        <script type="text/javascript">
+
+            $(function () {
+                $('input[name="tem_range"]').slider({
+                    min: {{ temp_min }},
+                    max: {{ temp_max }},
+                    step: 1,
+                    value: {{ form_render.tem_range.data }}
+                });
+            });
+        </script>
+    </div>
+
+    <div class="col-xs-12 col-sm-12">
+        <h3>Export</h3>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+        <form method='POST' action="/export_data">
+            {{ form_download.hidden_tag() }}
+            <div class="col-xs-12 col-sm-6">
+                <input type="text" name="date_range" class="form-control" style="width: 300px">
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <button type="submit" name="act" value="csv" class="btn btn-primary" style="width: 160px">
+                    <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Download CSV
+                </button>
+                <button type="submit" name="act" value="cloud" class="btn btn-primary" style="width: 160px" disabled>
+                    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Upload to Cloud
+                </button>
+            </div>
+        </form>
+
+        <script type="text/javascript">
+            $(function () {
+                $('input[name="date_range"]').daterangepicker({
+                    showDropdowns: true,
+                    timePicker: true,
+                    timePicker24Hour: true,
+                    timePickerSeconds:true,
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment(),
+                    locale: {
+                        format: 'YYYY/MM/DD HH:mm:ss'
+                    }
+                });
+            });
+        </script>
+    </div>
+
+    <div class="col-xs-12 col-sm-12">
+        <h3>Clear DB</h3>
+    </div>
+    <div class="col-xs-12 col-sm-12">
+        <div class="col-xs-12 col-sm-6">
+            Clear all messages records in DB.
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <button type="submit" class="btn btn-danger" style="width: 160px">
+                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear DB
+            </button>
+        </div>
+    </div>
+</div>
+<script src="/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>

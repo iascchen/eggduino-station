@@ -76,7 +76,7 @@
         function init() {
             // !!!!!!!!!!!!
             // You can change this range for color lut
-            lut = getLut(19.0, 21.0);
+            lut = getLut({{ tem_render[0] }}, {{ tem_render[1] }});
             let light_intensity = 0.4;
 
             container = document.getElementById('egg');

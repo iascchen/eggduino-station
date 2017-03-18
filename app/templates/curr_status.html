@@ -128,7 +128,7 @@
         function init() {
             // !!!!!!!!!!!!
             // You can change this range for color lut
-            lut = getLut(19.0, 21.0);   // getLut( min_temperature, max_temperature);
+            lut = getLut({{ tem_render[0] }}, {{ tem_render[1] }});   // getLut( min_temperature, max_temperature);
             let light_intensity = 0.4;
 
             container = document.getElementById('egg');
@@ -194,8 +194,8 @@
         }
 
         function render() {
-{#            camera.position.x += ( mouseX - camera.position.x ) * 0.05;#}
-{#            camera.position.y += ( -mouseY - camera.position.y ) * 0.05;#}
+            {#            camera.position.x += ( mouseX - camera.position.x ) * 0.05;#}
+            {#            camera.position.y += ( -mouseY - camera.position.y ) * 0.05;#}
             camera.lookAt(scene.position);
 
             if (currTems) {

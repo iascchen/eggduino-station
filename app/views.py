@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 
 
-from app import app, get_db, models, current_milli_time, forms
-from flask import render_template, request, redirect
-import json
-import subprocess
+import StringIO
+import csv
 import datetime
+import json
+import math
 import re
+import subprocess
 from urllib import quote
+from zipfile import ZipFile, ZIP_DEFLATED
+
+from flask import render_template, request, redirect
+
+from app import app, get_db, models, current_milli_time, forms
 
 history_period = 1 * 3600 * 1000  # 1 hour
 
@@ -27,7 +33,12 @@ TIME_SYNC_SHELL = './daemon/sync_time.py'
 MACRON_SHELL = './daemon/macron_daemon.py'
 # MACRON_SHELL = './daemon/test_python.py'
 
+SETTING_JSON = './setting.json'
+DOWNLOAD_PATH = '/static/download'
+STORE_PATH = './app/static/download'
+
 macron_pid = None
+setting = {}
 
 
 def cursor_to_nvd3_data(query_result):
@@ -97,9 +108,30 @@ def process_kill(pid):
     p.wait()
 
 
+def load_tem_render_setting():
+    # min = 0
+    # max = 100
+
+    with open(SETTING_JSON, 'r') as f:
+        global setting
+        setting = json.load(f)
+        _range = setting['temRenderRange']
+        f.close()
+        if _range:
+            return _range
+        else:
+            return [0, 100]
+
+
+def datetime2timestamp(dt):
+    return dt.strftime("%s000")
+
+
 @app.route('/')
 def index():
-    return render_template("curr_status.html")
+    tem_render = load_tem_render_setting()
+
+    return render_template("curr_status.html", tem_render=tem_render)
 
 
 @app.route('/hum_charts')
@@ -146,6 +178,8 @@ def egg_tems_charts():
     to_ts = current_milli_time()
     from_ts = to_ts - history_period
 
+    tem_render = load_tem_render_setting()
+
     # print from_ts, to_ts
 
     datas = models.get_history_temperatures(from_ts, to_ts)
@@ -161,7 +195,8 @@ def egg_tems_charts():
 
     ret.append({"key": "temp_avg", "values": serials[16]})
     ret.append({"key": "temp_station", "values": serials[17]})
-    return render_template("egg_tems.html", from_ts=from_ts, to_ts=to_ts, serials_data=json.dumps(ret))
+    return render_template("egg_tems.html", from_ts=from_ts, to_ts=to_ts, serials_data=json.dumps(ret),
+                           tem_render=tem_render)
 
 
 @app.route('/quats')
@@ -246,6 +281,7 @@ def interval():
     form_stop = forms.PidForm(request.form)
     form = forms.IntervalForm(request.form)
 
+    global macron_pid
     macron_pid = process_exist(MACRON_SHELL)
     form_stop.hidden_pid.data = macron_pid
     form.hidden_pid.data = macron_pid
@@ -256,7 +292,6 @@ def interval():
 @app.route('/apply_interval', methods=['POST'])
 def apply_interval():
     form = forms.IntervalForm(request.form)
-    # print 'IntervalForm requested for tem_interval=%s, hum_interval=%s, mov_interval=%s, env_interval=%s' % (form.tem_interval.data, form.hum_interval.data, form.mov_interval.data, form.env_interval.data)
 
     if request.method == 'POST' and form.validate():
         if form.hidden_pid.data:
@@ -268,7 +303,6 @@ def apply_interval():
 
         p = subprocess.Popen(cmd, stdout=open('nohup.out', 'w'), stderr=open('logfile.log', 'a'))
         print "pid : ", p.pid
-        # out, err = p.communicate()
 
         return redirect("/interval", code=302)
     else:
@@ -285,7 +319,102 @@ def stop_daemon():
     return redirect("/interval", code=302)
 
 
-@app.route('/download_data', methods=['GET', 'POST'])
-def download_data():
-    names = ["downloadData", ]
-    return render_template("index.html", text=names)
+@app.route('/data_page')
+def data_page():
+    form_render = forms.DataRenderForm(request.form)
+    form_download = forms.DataDownloadForm(request.form)
+
+    tem_render = load_tem_render_setting()
+    form_render.tem_range.data = tem_render
+    # print form_render.tem_range.data
+
+    msg = request.args.get('msg')
+    temp_min = 0
+    temp_max = 100
+
+    return render_template("data_page.html", form_render=form_render, form_download=form_download, msg=msg,
+                           temp_min=temp_min, temp_max=temp_max)
+
+
+@app.route('/apply_render', methods=['POST'])
+def save_render():
+    form = forms.DataRenderForm(request.form)
+
+    if request.method == 'POST' and form.validate():
+        print form.tem_range.data
+        act = form.act.data
+
+        _min = 0
+        _max = 100
+
+        if act == "auto":
+            to_ts = current_milli_time()
+            from_ts = 0
+
+            ret_min = models.get_temperature_range_min(from_ts, to_ts)
+            ret_max = models.get_temperature_range_max(from_ts, to_ts)
+
+            _min = math.floor(ret_min[0][0])
+            _max = math.ceil(ret_max[0][0])
+        else:
+            _range = form.tem_range.data.split(",")
+
+            _min = int(_range[0])
+            _max = int(_range[1])
+
+        print _min, _max
+
+        with open(SETTING_JSON, 'w') as f:
+            setting['temRenderRange'] = [_min, _max]
+            json.dump(setting, f, indent=2)
+            f.close()
+
+    return redirect("/data_page", code=302)
+
+
+@app.route('/export_data', methods=['POST'])
+def export_data():
+    form = forms.DataDownloadForm(request.form)
+    msg = request.args.get('msg')
+
+    if request.method == 'POST' and form.validate():
+        _range = form.date_range.data
+        _act = form.act.data
+
+        print _range, _act
+
+        range_array = _range.split(" - ")
+        print range_array
+
+        from_ts = datetime2timestamp(datetime.datetime.strptime(range_array[0], '%Y/%m/%d %H:%M:%S'))
+        to_ts = datetime2timestamp(datetime.datetime.strptime(range_array[1], '%Y/%m/%d %H:%M:%S'))
+        # print current_milli_time(), from_ts, to_ts
+
+        if _act == "csv":
+            output_filename = "data_{0}_{1}".format(from_ts, to_ts)
+            output_filename_csv = "{0}.csv".format(output_filename)
+            store_filename_zip = "{0}/{1}.zip".format(STORE_PATH, output_filename)
+
+            download_url = "{0}/{1}.zip".format(DOWNLOAD_PATH, output_filename)
+
+            cur = get_db().execute(models.SELECT_ALL_ITEMS_HISTORY, (from_ts, to_ts))
+
+            with ZipFile(store_filename_zip, 'w', ZIP_DEFLATED) as z_file:
+
+                string_buffer = StringIO.StringIO()
+
+                writer = csv.writer(string_buffer)
+                writer.writerow([i[0] for i in cur.description])
+                writer.writerows(cur)
+                cur.close()
+
+                z_file.writestr(output_filename_csv, string_buffer.getvalue())
+                z_file.close()
+
+                return redirect(download_url, code=302)
+
+        elif _act == "cloud":
+            pass  # TODO implement to upload date to mCotton
+
+    url = "/data_page?msg={0}".format(quote(msg))
+    return redirect(url, code=302)

@@ -203,9 +203,9 @@ def dispatch_messages(msg):
 def start_egg_notify(cmds):
     print "==> Start Egg Notification ..."
 
-    for cmd in cmds:
-        print '\t==> command sending :', cmd
-        ser.write(cmd + '\n')
+    for _cmd in cmds:
+        print '\t==> command sending :', _cmd
+        ser.write(_cmd + '\n')
         sleep(cmds_send_interval)
 
 

@@ -61,12 +61,14 @@ CMD_S_STOP = 'AB0400'
 # uart = mraa.Uart(0)
 # print uart.getDevicePath()
 # ser = serial.Serial(uart.getDevicePath(), 9600)
+
 ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 cmds_send_interval = 1
 msg_wait_interval = 0.1
 
-init_cmds = [CMD_T_STOP, CMD_H_STOP, CMD_Q_STOP, CMD_S_STOP, CMD_T, CMD_H, CMD_Q, CMD_S]
+stop_cmds = [CMD_T_STOP, CMD_H_STOP, CMD_Q_STOP, CMD_S_STOP]
+init_cmds = stop_cmds + [CMD_T, CMD_H, CMD_Q, CMD_S]
 
 ##########################
 # Const
@@ -213,14 +215,13 @@ def start_egg_notify(cmds):
     print "==> Start Egg Notification ..."
 
     for cmd in cmds:
-        print '\t==> command sending :', cmd
-        ser.write(cmd + '\n')
+        print '\t==> command sending :', cmd.strip()
+        ser.write(cmd.strip() + '\n')
         sleep(cmds_send_interval)
 
 
 def load_schedules(schedules_str):
     schedule = sched.scheduler(time, sleep)
-    stops = [CMD_T_STOP, CMD_H_STOP, CMD_Q_STOP, CMD_S_STOP]
 
     time_offset = 0
     for task in schedules_str.split("\n"):
@@ -231,7 +232,7 @@ def load_schedules(schedules_str):
             cmds = task_parts[0]
             if not cmds.startswith("#"):
                 time_sleep = int(task_parts[1])
-                schedule.enter(time_offset, 0, start_egg_notify, [stops + cmds.split(",")])
+                schedule.enter(time_offset, 0, start_egg_notify, [stop_cmds + cmds.split(",")])
                 time_offset += time_sleep
         except:
             pass
@@ -266,7 +267,15 @@ def show_data():
         dispatch_messages(msg)
 
         if msg == '436F6E6E65637465640D0A':  # Connected
-            start_egg_notify(init_cmds)
+            # start_egg_notify(init_cmds)
+
+            if params_cmds_list != ['']:
+                start_egg_notify(init_cmds)
+
+            if params_schedules != '':
+                # TODO ： Need Test. If uncomment these sentense, maybe have two thread of run schedules
+                # thread.start_new_thread(load_schedules, (params_schedules,))
+                pass
 
         sleep(msg_wait_interval)  # Delay for one tenth of a second
 

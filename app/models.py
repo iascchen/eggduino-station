@@ -77,6 +77,8 @@ SELECT_TEMPERATURE_MAX = '''select max(
     from messages
     where (ts > ?) and (ts < ?)'''
 
+DELETE_ALL_RECORDS = 'DELETE FROM messages'
+
 DEFAULT_LIMIT = 10000
 
 

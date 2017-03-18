@@ -418,3 +418,13 @@ def export_data():
 
     url = "/data_page?msg={0}".format(quote(msg))
     return redirect(url, code=302)
+
+
+@app.route('/reset_db')
+def reset_db():
+    get_db().execute(models.DELETE_ALL_RECORDS)
+    get_db().commit()
+
+    msg = "All data deleted!"
+    url = "/data_page?msg={0}".format(quote(msg))
+    return redirect(url, code=302)

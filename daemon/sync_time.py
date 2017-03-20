@@ -11,7 +11,16 @@ cmds_send_interval = 1
 msg_wait_interval = 0.1
 wait_timeout_times = 10
 
-ser = serial.Serial('/dev/ttyAMA0', 9600)
+# For Edison
+# uart = mraa.Uart(0)
+# print uart.getDevicePath()
+# ser = serial.Serial(uart.getDevicePath(), 9600)
+
+# For Raspberry Pi Zero
+# ser = serial.Serial('/dev/ttyAMA0', 9600)
+
+# For Raspberry Pi 3
+ser = serial.Serial('/dev/serial0', 9600)
 
 ##################
 # Utils

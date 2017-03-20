@@ -4,6 +4,11 @@
     <list default="true" id="8d07601a-e076-43ff-b832-ddeae9741674" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon/macron_daemon.py" afterPath="$PROJECT_DIR$/daemon/macron_daemon.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon/macron_raw.py" afterPath="$PROJECT_DIR$/daemon/macron_raw.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon/macron_schedule.py" afterPath="$PROJECT_DIR$/daemon/macron_schedule.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daemon/sync_time.py" afterPath="$PROJECT_DIR$/daemon/sync_time.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/raw_input.py" afterPath="$PROJECT_DIR$/tests/raw_input.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/serialDemo.py" afterPath="$PROJECT_DIR$/tests/serialDemo.py" />
     </list>
     <ignored path="eggduino-station.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +44,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6552">
+            <state relative-caret-position="285">
               <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
               <folding>
                 <element signature="e#26#41#0" expanded="true" />
@@ -48,17 +53,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="macron_daemon.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="macron_daemon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/daemon/macron_daemon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="70" column="9" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="9" />
+            <state relative-caret-position="106">
+              <caret line="59" column="28" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
               <folding>
                 <element signature="e#46#61#0" expanded="true" />
-                <marker date="1489861945000" expanded="true" signature="1975:2209" ph="INSERT INTO messages... " />
-                <marker date="1489861945000" expanded="true" signature="2243:2322" ph="INSERT INTO messages... " />
-                <marker date="1489861945000" expanded="true" signature="2353:2399" ph="INSERT INTO messages... " />
-                <marker date="1489861945000" expanded="true" signature="2425:2494" ph="INSERT INTO messages... " />
+                <marker date="1490003979000" expanded="true" signature="1959:2193" ph="INSERT INTO messages... " />
+                <marker date="1490003979000" expanded="true" signature="2227:2306" ph="INSERT INTO messages... " />
+                <marker date="1490003979000" expanded="true" signature="2337:2383" ph="INSERT INTO messages... " />
+                <marker date="1490003979000" expanded="true" signature="2409:2478" ph="INSERT INTO messages... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HowToMakeImages_raspi.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/HowToMakeImages_raspi.md">
+          <provider editor-type-id="MarkdownFxPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="237">
+                <caret line="102" column="61" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="61" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="macron_raw.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/daemon/macron_raw.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="57" column="41" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+              <folding>
+                <marker date="1490004128000" expanded="true" signature="1747:1981" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="2015:2094" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="2125:2171" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="2197:2266" ph="INSERT INTO messages... " />
               </folding>
             </state>
           </provider>
@@ -67,15 +103,45 @@
       <file leaf-file-name="macron_schedule.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/daemon/macron_schedule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="266" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
+            <state relative-caret-position="378">
+              <caret line="66" column="41" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="41" />
               <folding>
                 <element signature="e#46#61#0" expanded="true" />
-                <marker date="1489860983000" expanded="true" signature="1974:2208" ph="INSERT INTO messages... " />
-                <marker date="1489860983000" expanded="true" signature="2242:2321" ph="INSERT INTO messages... " />
-                <marker date="1489860983000" expanded="true" signature="2352:2398" ph="INSERT INTO messages... " />
-                <marker date="1489860983000" expanded="true" signature="2424:2493" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="1958:2192" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="2226:2305" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="2336:2382" ph="INSERT INTO messages... " />
+                <marker date="1490004128000" expanded="true" signature="2408:2477" ph="INSERT INTO messages... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sync_time.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/daemon/sync_time.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="raw_input.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/raw_input.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="serialDemo.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/serialDemo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="15" column="12" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,7 +149,7 @@
       <file leaf-file-name="thread.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.2/python_stubs/-2125986627/thread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="811">
+            <state relative-caret-position="1650">
               <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
               <folding />
             </state>
@@ -107,8 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tests/serialDemo.py" />
-        <option value="$PROJECT_DIR$/tests/raw_input.py" />
         <option value="$PROJECT_DIR$/tests/utc_now.py" />
         <option value="$PROJECT_DIR$/daemon/fetch_utp.py" />
         <option value="$PROJECT_DIR$/app/templates/setting.html" />
@@ -124,7 +188,6 @@
         <option value="$PROJECT_DIR$/app/templates/_formhelpers.html" />
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/docs/HowToMakeImages_raspi.md" />
-        <option value="$PROJECT_DIR$/daemon/sync_time.py" />
         <option value="$PROJECT_DIR$/app/templates/interval.html" />
         <option value="$PROJECT_DIR$/app/static/macron.css" />
         <option value="$PROJECT_DIR$/daemon/vulture.json" />
@@ -133,7 +196,6 @@
         <option value="$PROJECT_DIR$/app/templates/egg_tems.html" />
         <option value="$PROJECT_DIR$/app/schema.sql" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/daemon/macron_raw.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/daemon/run_schedule.py" />
         <option value="$PROJECT_DIR$/app/templates/time.html" />
@@ -144,9 +206,13 @@
         <option value="$PROJECT_DIR$/app/forms.py" />
         <option value="$PROJECT_DIR$/setting.json" />
         <option value="$PROJECT_DIR$/app/templates/page_daemon.html" />
-        <option value="$PROJECT_DIR$/daemon/macron_schedule.py" />
         <option value="$PROJECT_DIR$/app/views.py" />
         <option value="$PROJECT_DIR$/daemon/macron_daemon.py" />
+        <option value="$PROJECT_DIR$/daemon/macron_raw.py" />
+        <option value="$PROJECT_DIR$/daemon/macron_schedule.py" />
+        <option value="$PROJECT_DIR$/daemon/sync_time.py" />
+        <option value="$PROJECT_DIR$/tests/raw_input.py" />
+        <option value="$PROJECT_DIR$/tests/serialDemo.py" />
       </list>
     </option>
   </component>
@@ -157,9 +223,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="91" />
     <option name="y" value="23" />
-    <option name="width" value="1157" />
+    <option name="width" value="1185" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -187,8 +252,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -217,62 +280,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="daemon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eggduino-station" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eggduino-station" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eggduino-station" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eggduino-station" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eggduino-station" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eggduino-station" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="docs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -601,17 +616,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="91" y="23" width="1157" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1185" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33452916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24846894" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6280255" sideWeight="0.5028694" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.119282514" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12685914" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.4928264" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27261147" sideWeight="0.49713057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27261147" sideWeight="0.49713057" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -619,7 +635,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.49678603" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Concurrent Activities Diagram" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -643,20 +658,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/utc_now.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/start_server.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/egg_quats.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1629">
@@ -701,6 +702,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/HowToMakeImages.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="45">
@@ -708,9 +712,6 @@
           </first_editor>
           <second_editor />
         </state>
-      </provider>
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/daemon/test_python.py">
@@ -727,20 +728,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/HowToMakeImages_raspi.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="897">
-            <caret line="100" column="24" selection-start-line="100" selection-start-column="24" selection-end-line="100" selection-end-column="24" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider editor-type-id="MarkdownFxPreviewEditor">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="225">
@@ -748,9 +739,6 @@
           </first_editor>
           <second_editor />
         </state>
-      </provider>
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/index.html">
@@ -824,13 +812,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/static/download/data_0_1489826586638.csv" />
-    <entry file="file://$PROJECT_DIR$/daemon/sync_time.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="63" column="37" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -880,13 +861,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/daemon/macron_raw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/daemon/schedules.py" />
     <entry file="file://$PROJECT_DIR$/daemon/run_schedule.py" />
     <entry file="file://$PROJECT_DIR$/app/templates/_formhelpers.html">
@@ -926,7 +900,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6552">
+        <state relative-caret-position="285">
           <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
           <folding>
             <element signature="e#26#41#0" expanded="true" />
@@ -936,37 +910,88 @@
     </entry>
     <entry file="file://$USER_HOME$/Library/Caches/PyCharm2016.2/python_stubs/-2125986627/thread.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
+        <state relative-caret-position="1650">
           <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/daemon/macron_schedule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="266" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
-          <folding>
-            <element signature="e#46#61#0" expanded="true" />
-            <marker date="1489860983000" expanded="true" signature="1974:2208" ph="INSERT INTO messages... " />
-            <marker date="1489860983000" expanded="true" signature="2242:2321" ph="INSERT INTO messages... " />
-            <marker date="1489860983000" expanded="true" signature="2352:2398" ph="INSERT INTO messages... " />
-            <marker date="1489860983000" expanded="true" signature="2424:2493" ph="INSERT INTO messages... " />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/docs/HowToMakeImages_raspi.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="237">
+            <caret line="102" column="61" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="61" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/daemon/macron_daemon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="70" column="9" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="9" />
+        <state relative-caret-position="106">
+          <caret line="59" column="28" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
           <folding>
             <element signature="e#46#61#0" expanded="true" />
-            <marker date="1489861945000" expanded="true" signature="1975:2209" ph="INSERT INTO messages... " />
-            <marker date="1489861945000" expanded="true" signature="2243:2322" ph="INSERT INTO messages... " />
-            <marker date="1489861945000" expanded="true" signature="2353:2399" ph="INSERT INTO messages... " />
-            <marker date="1489861945000" expanded="true" signature="2425:2494" ph="INSERT INTO messages... " />
+            <marker date="1490003979000" expanded="true" signature="1959:2193" ph="INSERT INTO messages... " />
+            <marker date="1490003979000" expanded="true" signature="2227:2306" ph="INSERT INTO messages... " />
+            <marker date="1490003979000" expanded="true" signature="2337:2383" ph="INSERT INTO messages... " />
+            <marker date="1490003979000" expanded="true" signature="2409:2478" ph="INSERT INTO messages... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/daemon/macron_raw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="57" column="41" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+          <folding>
+            <marker date="1490004128000" expanded="true" signature="1747:1981" ph="INSERT INTO messages... " />
+            <marker date="1490004128000" expanded="true" signature="2015:2094" ph="INSERT INTO messages... " />
+            <marker date="1490004128000" expanded="true" signature="2125:2171" ph="INSERT INTO messages... " />
+            <marker date="1490004128000" expanded="true" signature="2197:2266" ph="INSERT INTO messages... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/daemon/macron_schedule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="66" column="41" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="41" />
+          <folding>
+            <element signature="e#46#61#0" expanded="true" />
+            <marker date="1490004128000" expanded="true" signature="1958:2192" ph="INSERT INTO messages... " />
+            <marker date="1490004128000" expanded="true" signature="2226:2305" ph="INSERT INTO messages... " />
+            <marker date="1490004128000" expanded="true" signature="2336:2382" ph="INSERT INTO messages... " />
+            <marker date="1490004128000" expanded="true" signature="2408:2477" ph="INSERT INTO messages... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/daemon/sync_time.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/raw_input.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/serialDemo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>

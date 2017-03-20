@@ -46,13 +46,16 @@ CMD_H_STOP = 'AB0200'
 CMD_Q_STOP = 'AB0300'
 CMD_S_STOP = 'AB0400'
 
-# ser = serial.Serial("/dev/tty.usbserial-A402EXKV", 9600)
-# ser = serial.Serial("/dev/tty.usbserial-A800H5W2", 9600)
-
+# For Edison
 # uart = mraa.Uart(0)
 # print uart.getDevicePath()
 # ser = serial.Serial(uart.getDevicePath(), 9600)
-ser = serial.Serial('/dev/ttyAMA0', 9600)
+
+# For Raspberry Pi Zero
+# ser = serial.Serial('/dev/ttyAMA0', 9600)
+
+# For Raspberry Pi 3
+ser = serial.Serial('/dev/serial0', 9600)
 
 cmds_send_interval = 1
 msg_wait_interval = 0.1

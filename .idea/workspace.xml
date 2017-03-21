@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d07601a-e076-43ff-b832-ddeae9741674" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/date_select.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms.py" afterPath="$PROJECT_DIR$/app/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/egg_quats.html" afterPath="$PROJECT_DIR$/app/templates/egg_quats.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/egg_tems.html" afterPath="$PROJECT_DIR$/app/templates/egg_tems.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/hum_charts.html" afterPath="$PROJECT_DIR$/app/templates/hum_charts.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/index.html" afterPath="$PROJECT_DIR$/app/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/page_data.html" afterPath="$PROJECT_DIR$/app/templates/page_data.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/station_charts.html" afterPath="$PROJECT_DIR$/app/templates/station_charts.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/HowToMakeImages_raspi.md" afterPath="$PROJECT_DIR$/docs/HowToMakeImages_raspi.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/date_select.html" afterPath="$PROJECT_DIR$/app/templates/date_select.html" />
     </list>
     <ignored path="eggduino-station.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,8 +38,8 @@
       <file leaf-file-name="date_select.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/date_select.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="29" column="15" lean-forward="true" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+            <state relative-caret-position="75">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -121,8 +111,8 @@
         <option value="$PROJECT_DIR$/app/templates/egg_tems.html" />
         <option value="$PROJECT_DIR$/app/templates/hum_charts.html" />
         <option value="$PROJECT_DIR$/app/views.py" />
-        <option value="$PROJECT_DIR$/app/templates/date_select.html" />
         <option value="$PROJECT_DIR$/app/templates/page_data.html" />
+        <option value="$PROJECT_DIR$/app/templates/date_select.html" />
       </list>
     </option>
   </component>
@@ -905,8 +895,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/date_select.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="29" column="15" lean-forward="true" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+        <state relative-caret-position="75">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>

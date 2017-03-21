@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <script src="/static/jquery-3.1.1.min.js"></script>
 
-    <script src="/static/moment.min.js"></script>
-
     <link rel="stylesheet" href="/static/bootstrap-slider.min.css">
     <script src="/static/bootstrap-slider.min.js"></script>
 
+    <script src="/static/moment.min.js"></script>
     <!-- Include Date Range Picker -->
     <link rel="stylesheet" type="text/css" href="/static/daterangepicker.css"/>
     <script src="/static/daterangepicker.js"></script>
@@ -94,6 +93,7 @@
         <script type="text/javascript">
             $(function () {
                 $('input[name="date_range"]').daterangepicker({
+                    autoApply: true,
                     showDropdowns: true,
                     timePicker: true,
                     timePicker24Hour: true,

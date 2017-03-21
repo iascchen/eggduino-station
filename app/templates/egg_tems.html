@@ -13,6 +13,16 @@
     <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <script src="/static/jquery-3.1.1.min.js"></script>
 
+    <script src="/static/moment.min.js"></script>
+    <!-- Include Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="/static/daterangepicker.css"/>
+    <script src="/static/daterangepicker.js"></script>
+
+    <script src="/static/moment.min.js"></script>
+    <!-- Include Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="/static/daterangepicker.css"/>
+    <script src="/static/daterangepicker.js"></script>
+
     <link href="/static/nv.d3.min.css" rel="stylesheet" type="text/css">
     <script src="/static/d3.min.js" charset="utf-8"></script>
     <script src="/static/nv.d3.min.js"></script>
@@ -25,7 +35,7 @@
         #chart1 {
             margin: 0px;
             padding: 0px;
-            height: 85vh;
+            height: 80vh;
             width: 100%;
         }
     </style>
@@ -33,6 +43,8 @@
 <body>
 <div class="col-md-6">
     {% include 'header.html' %}
+
+    {% include 'date_select.html' with context%}
 
     <div id="chart1">
         <svg></svg>

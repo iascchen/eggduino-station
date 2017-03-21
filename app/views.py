@@ -37,6 +37,8 @@ SETTING_JSON = './setting.json'
 DOWNLOAD_PATH = '/static/download'
 STORE_PATH = './app/static/download'
 
+WITHOUT_RECORDS = "Without records in this period, please check your devices is working"
+
 macron_pid = None
 setting = {}
 
@@ -139,6 +141,23 @@ def datetime2timestamp(dt):
     return dt.strftime("%s000")
 
 
+def parse_date_picker(form_date_picker):
+    to_ts = current_milli_time()
+    from_ts = to_ts - history_period
+
+    # print from_ts, to_ts
+    if request.method == 'POST' and form_date_picker.validate():
+        _range = form_date_picker.date_range.data
+
+        range_array = _range.split(" - ")
+
+        from_ts = datetime2timestamp(datetime.datetime.strptime(range_array[0], '%Y/%m/%d %H:%M:%S'))
+        to_ts = datetime2timestamp(datetime.datetime.strptime(range_array[1], '%Y/%m/%d %H:%M:%S'))
+        print current_milli_time(), from_ts, to_ts
+
+    return [from_ts, to_ts]
+
+
 @app.route('/')
 def index():
     tem_render = load_setting('temRenderRange', [0, 100])
@@ -146,59 +165,66 @@ def index():
     return render_template("curr_status.html", tem_render=tem_render)
 
 
-@app.route('/hum_charts')
+@app.route('/hum_charts', methods=['POST', 'GET'])
 def hum_charts():
-    to_ts = current_milli_time()
-    from_ts = to_ts - history_period
+    form_date_picker = forms.DatePickerForm(request.form)
+    _range = parse_date_picker(form_date_picker)
 
-    # print from_ts, to_ts
+    form_date_picker.date_range.data = _range
 
-    datas = models.get_history_humidities(from_ts, to_ts)
+    datas = models.get_history_humidities(_range[0], _range[1])
     serials = cursor_to_nvd3_data(datas)
 
     if not serials:
-        return render_template("index.html", text="Without records in last one hour, please check your devices")
+        return render_template("hum_charts.html", form_date_picker=form_date_picker, action_url="/hum_charts",
+                               msg=WITHOUT_RECORDS)
 
     ret = [{"key": "Humidity in Egg", "values": serials[0]},
            {"key": "Humidity of Station", "values": serials[1]}]
 
-    return render_template("hum_charts.html", from_ts=from_ts, to_ts=to_ts, serials_data=json.dumps(ret))
+    return render_template("hum_charts.html", form_date_picker=form_date_picker, action_url="/hum_charts",
+                           from_ts=_range[0], to_ts=_range[1], serials_data=json.dumps(ret))
 
 
-@app.route('/station_charts')
+@app.route('/station_charts', methods=['POST', 'GET'])
 def station_charts():
-    to_ts = current_milli_time()
-    from_ts = to_ts - history_period
+    form_date_picker = forms.DatePickerForm(request.form)
+    _range = parse_date_picker(form_date_picker)
 
-    # print from_ts, to_ts
-
-    datas = models.get_history_station(from_ts, to_ts)
+    form_date_picker.date_range.data = _range
+    datas = models.get_history_station(_range[0], _range[1])
     serials = cursor_to_nvd3_data(datas)
 
     if not serials:
-        return render_template("index.html", text="Without records in last one hour, please check your devices")
+        return render_template("station_charts.html", form_date_picker=form_date_picker, action_url="/station_charts",
+                               msg=WITHOUT_RECORDS)
 
     ret = [{"key": "Humidity(%)", "values": serials[0]},
            {"key": "Lightness(lux)", "values": serials[1]},
            {"key": "Temperature(ºC)", "values": serials[2]}]
 
-    return render_template("station_charts.html", from_ts=from_ts, to_ts=to_ts, serials_data=json.dumps(ret))
+    return render_template("station_charts.html", form_date_picker=form_date_picker, action_url="/station_charts",
+                           from_ts=_range[0], to_ts=_range[1],
+                           serials_data=json.dumps(ret))
 
 
-@app.route('/tems')
+@app.route('/tems', methods=['POST', 'GET'])
 def egg_tems_charts():
-    to_ts = current_milli_time()
-    from_ts = to_ts - history_period
+    form_date_picker = forms.DatePickerForm(request.form)
+    _range = parse_date_picker(form_date_picker)
+
+    form_date_picker.date_range.data = _range
 
     tem_render = load_setting('temRenderRange', [0, 100])
 
     # print from_ts, to_ts
 
-    datas = models.get_history_temperatures(from_ts, to_ts)
+    datas = models.get_history_temperatures(_range[0], _range[1])
     serials = cursor_to_nvd3_data(datas)
 
     if not serials:
-        return render_template("index.html", text="Without records in last one hour, please check your devices")
+        return render_template("egg_tems.html", form_date_picker=form_date_picker, action_url="/tems",
+                               msg=WITHOUT_RECORDS, tem_render=tem_render)
 
     ret = []
     for i in range(0, 16):
@@ -207,29 +233,33 @@ def egg_tems_charts():
 
     ret.append({"key": "temp_avg", "values": serials[16]})
     ret.append({"key": "temp_station", "values": serials[17]})
-    return render_template("egg_tems.html", from_ts=from_ts, to_ts=to_ts, serials_data=json.dumps(ret),
-                           tem_render=tem_render)
+    return render_template("egg_tems.html", form_date_picker=form_date_picker, action_url="/tems",
+                           from_ts=_range[0], to_ts=_range[1],
+                           serials_data=json.dumps(ret), tem_render=tem_render)
 
 
-@app.route('/quats')
+@app.route('/quats', methods=['POST', 'GET'])
 def egg_quats_charts():
-    to_ts = current_milli_time()
-    from_ts = to_ts - history_period
+    form_date_picker = forms.DatePickerForm(request.form)
+    _range = parse_date_picker(form_date_picker)
 
-    # print from_ts, to_ts
+    form_date_picker.date_range.data = _range
 
-    datas = models.get_history_quaternions(from_ts, to_ts)
+    datas = models.get_history_quaternions(_range[0], _range[1])
     serials = cursor_to_nvd3_data(datas)
 
     if not serials:
-        return render_template("index.html", text="Without records in last one hour, please check your devices")
+        return render_template("egg_quats.html", form_date_picker=form_date_picker, action_url="/quats",
+                               msg=WITHOUT_RECORDS)
 
     ret = [{"key": "w", "values": serials[0]},
            {"key": "x", "values": serials[1]},
            {"key": "y", "values": serials[2]},
            {"key": "z", "values": serials[3]}]
 
-    return render_template("egg_quats.html", from_ts=from_ts, to_ts=to_ts, serials_data=json.dumps(ret))
+    return render_template("egg_quats.html", form_date_picker=form_date_picker, action_url="/quats",
+                           from_ts=_range[0], to_ts=_range[1],
+                           serials_data=json.dumps(ret))
 
 
 @app.route("/curr_data")

@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/static/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <script src="/static/jquery-3.1.1.min.js"></script>
 
+    <script src="/static/moment.min.js"></script>
+    <!-- Include Date Range Picker -->
+    <link rel="stylesheet" type="text/css" href="/static/daterangepicker.css"/>
+    <script src="/static/daterangepicker.js"></script>
+
     <link href="/static/nv.d3.min.css" rel="stylesheet" type="text/css">
     <script src="/static/d3.min.js" charset="utf-8"></script>
     <script src="/static/nv.d3.min.js"></script>
@@ -33,7 +38,10 @@
 <body>
 <div class="col-md-12">
     {% include 'header.html' %}
+
+    {% include 'date_select.html' with context%}
 </div>
+
 <div id="egg"></div>
 
 <script src="/static/threejs/Detector.js"></script>
@@ -121,8 +129,8 @@
     }
 
     function render() {
-{#        camera.position.x += ( mouseX - camera.position.x ) * 0.05;#}
-{#        camera.position.y += ( -mouseY - camera.position.y ) * 0.05;#}
+        {#        camera.position.x += ( mouseX - camera.position.x ) * 0.05;#}
+        {#        camera.position.y += ( -mouseY - camera.position.y ) * 0.05;#}
         camera.lookAt(scene.position);
 
         // group.rotation.y -= 0.005;

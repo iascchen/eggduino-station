@@ -70,3 +70,14 @@ class DataDownloadForm(FlaskForm):
     #         return False
     #
     #     return True
+
+
+class DatePickerForm(FlaskForm):
+    date_range = StringField('From Date', validators=[InputRequired()])
+
+    # def validate(self):
+    #     if not FlaskForm.validate(self):
+    #         print 'Optional Form Errors: {0}'.format(self.errors)
+    #         return False
+    #
+    #     return True

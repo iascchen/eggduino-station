@@ -1,0 +1,70 @@
+<div class="col-xs-12 col-sm-12" style="margin:1vh; height:8vh;">
+    <form method='POST' action={{ action_url }}>
+        {{ form_date_picker.hidden_tag() }}
+        <div class="col-xs-12 col-sm-6">
+            <input type="text" name="date_range" class="form-control" style="width: 300px">
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <button type="submit" class="btn btn-primary" style="width: 160px">
+                <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Query
+            </button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function () {
+            $('input[name="date_range"]').daterangepicker({
+                autoApply: true,
+                showDropdowns: true,
+                timePicker: true,
+                timePicker24Hour: true,
+                timePickerSeconds: true,
+                startDate: moment().subtract(1, 'hours'),
+                endDate: moment(),
+                dateLimit: {
+                    "days": 3
+                },
+                locale: {
+                    format: 'YYYY/MM/DD HH:mm:ss'
+                }
+            });
+        });
+    </script>
+
+    {#    <script type="text/javascript">#}
+    {#        $(function () {#}
+    {##}
+    {#            var start = moment().subtract(1, 'hours');#}
+    {#            var end = moment();#}
+    {##}
+    {#            $('input[name="date_range"]').daterangepicker({#}
+    {#                startDate: start,#}
+    {#                endDate: end,#}
+    {#                timePicker: true,#}
+    {#                timePicker24Hour: true,#}
+    {#                timePickerSeconds: true,#}
+    {#                showCustomRangeLabel: false,#}
+    {#                ranges: {#}
+    {#                    'Last 1 Hour': [moment().subtract(1, 'hours'), moment()],#}
+    {#                    'Last 2 Hours': [moment().subtract(2, 'hours'), moment()],#}
+    {#                    'Last 3 Hours': [moment().subtract(3, 'hours'), moment()],#}
+    {#                    'Last 6 Hours': [moment().subtract(6, 'hours'), moment()],#}
+    {#                    'Last 12 Hours': [moment().subtract(12, 'hours'), moment()],#}
+    {#                    'Last 1 Days': [moment().subtract(1, 'days'), moment()],#}
+    {#                    'Last 2 Days': [moment().subtract(2, 'days'), moment()],#}
+    {#                    'Last 3 Days': [moment().subtract(3, 'days'), moment()]#}
+    {#                },#}
+    {#                locale: {#}
+    {#                    format: 'YYYY/MM/DD HH:mm:ss'#}
+    {#                }#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
+
+    {% if msg %}
+        <div class="col-xs-12 col-sm-12">
+            <pre class="label-warning">{{ msg }}</pre>
+        </div>
+    {% endif %}
+</div>
+

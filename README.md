@@ -1,5 +1,7 @@
 # mAcron for Eggduino
  
+Version 4
+ 
 This software is a part of Eggduino, a project of [ICBP (International Centre for Birds of Prey)](http://www.icbp.org/index/), supported by microduino and their friends.
 
 Support eggduino hardware firmware version : **VultureEgg_0.2.C14.00.hex**. Related project is [https://github.com/lixianyu/VultureEgg141](https://github.com/lixianyu/VultureEgg141)
@@ -23,7 +25,13 @@ You can modify and distribute these code freely for education and scientific res
 
 ## Connect to mAcron
 
-mAcron is running on Intel Edison.
+Latest version(Version 4) of mAcron is running on Raspberry Pi 3
+
+OS : 2017-03-02-raspbian-jessie
+
+### Old Version
+
+Version 3 of mAcron is running on Intel Edison
 
 OS : Poky (Yocto Project Reference Distro) 1.7.3
 

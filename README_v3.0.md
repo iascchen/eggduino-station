@@ -1,6 +1,6 @@
+# This document is for macron v3.0, it is depreciated.
+
 # mAcron for Eggduino
- 
-(Version 4)
  
 This software is a part of Eggduino, a project of [ICBP (International Centre for Birds of Prey)](http://www.icbp.org/index/), supported by microduino and their friends.
 
@@ -25,105 +25,117 @@ You can modify and distribute these code freely for education and scientific res
 
 ## Connect to mAcron
 
-running on Raspberry Pi 3
+mAcron is running on Intel Edison.
 
-OS : 2017-03-02-raspbian-jessie
+OS : Poky (Yocto Project Reference Distro) 1.7.3
 
 ### Connect with USB
 
 You can use Putty(Win) or Term2(Mac) 
 
-#### Ethernet
+#### on Windows
 
-The network structure show as follow:
+TBD
 
-                        BLE                       Ethernet            Wifi／Ethernet
-    Eggduino Hardware  ----->  Eggduino Station  --------->  Router  <--------------  Your computer
+#### on Mac OSX
+
+You can use some tools such as Terminal or iTerm2. 
+
+    $ ls /dev/tty.usbserial*
+    /dev/tty.usbserial-A402EXKV
     
-Connect the raspberry pi 3 to the same router with your computer. Use name `eggduino.local` to access it. 
+    
+    $ screen /dev/tty.usbserial-A402EXKV 115200
+    (Sometimes, you need press the enter key two times)
+    
+    eggduino login: root
+    Password: eggduino
+    Last login: Sun Oct  9 05:17:00 UTC 2016 on ttyMFD2
+    root@eggduino:~# 
 
 ### Connect with SSH
 
-Username is `root`, and password is `eggduino`
+If want to use ssh to access eggduino, you must setting the wireless connection firstly.
 
-	#### Connect with SSH from your Computer
-
-	$ ssh root@eggduino.local
-	root@eggduino.local's password: eggduino
-	
-	The programs included with the Debian GNU/Linux system are free software;
-	the exact distribution terms for each program are described in the
-	individual files in /usr/share/doc/*/copyright.
-	
-	Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-	permitted by applicable law.
-	Last login: Mon Mar 20 10:17:50 2017 from fe80::1cf7:ee6:4c83:8254%wlan0
-	root@eggduino:~#
+* Connect eggduino with USB ( just one time )
+* Setting wireless ( just one time )
+* Connect with SSH and wireless
 
 #### Setting Wireless Connection
 
 The network structure show as follow:
 
-                        BLE                       Wifi           Wifi
-    Eggduino Hardware  ----->  Eggduino Station  -----> Router  <-----  Your computer
+                        BLE                       Wifi                     Wifi
+    Eggduino Hardware  ----->  Eggduino Station  ----->  Wireless Router  <-----  Your computer
 
-Here recorded the steps of wifi configuration, you can change the setting according to your wireless network. [Reference Link](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
+Here recorded the steps of wifi configuration, you can change the setting according to your wireless network. use `configure_edison --wifi`
+    
+    root@eggduino:~# configure_edison --wifi
+    Configure Edison: WiFi Connection
 
-Before: 
+    Scanning: 1 seconds left
 
-	root@eggduino:~# ifconfig wlan0
-	wlan0     Link encap:Ethernet  HWaddr e8:4e:06:2b:87:55
-	          inet6 addr: fe80::2ee1:a471:e456:5975/64 Scope:Link
-	          UP BROADCAST MULTICAST  MTU:1500  Metric:1
-	          RX packets:0 errors:0 dropped:50 overruns:0 frame:0
-	          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-	          collisions:0 txqueuelen:1000
-	          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+    0 :     Rescan for networks
+    1 :     Exit WiFi Setup
+    2 :     Manually input a hidden SSID
+    3 :     ...
+    4 :     ...
+    5 :     Microduino_IoT
 
-
-	root@eggduino:~# iwlist wlan0 scan
-	root@eggduino:~# wpa_passphrase %wifissidname% %wifipassword% >> /etc/wpa_supplicant/wpa_supplicant.conf
-	
-for example：
-	
-	wpa_passphrase Microduino MakerModule2015 >> /etc/wpa_supplicant/wpa_supplicant.conf
-
-Make sure the wireless setting is saved：
-
-	root@eggduino:~# vi /etc/wpa_supplicant/wpa_supplicant.conf
-
-Enable 
-
-	root@eggduino:~# wpa_cli reconfigure
-	Selected interface 'wlan0'
-	OK
-
-	root@eggduino:~# ifconfig wlan0
-	wlan0     Link encap:Ethernet  HWaddr e8:4e:06:2b:87:55
-	          inet addr:192.168.9.213  Bcast:192.168.9.255  Mask:255.255.255.0
-	          inet6 addr: fe80::dc1a:e088:5aec:bea1/64 Scope:Link
-	          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-	          RX packets:181 errors:0 dropped:100 overruns:0 frame:0
-	          TX packets:145 errors:0 dropped:1 overruns:0 carrier:0
-	          collisions:0 txqueuelen:1000
-	          RX bytes:34561 (33.7 KiB)  TX bytes:22900 (22.3 KiB)
-
-	root@eggduino:~# 
+    Enter 0 to rescan for networks.
+    Enter 1 to exit.
+    Enter 2 to input a hidden network SSID.
+    Enter a number between 3 to 12 to choose one of the listed network SSIDs: 5
+    Is Microduino_IoT correct? [Y or N]: Y
+    Password must be between 8 and 63 characters.
+    What is the network password?: ***************
+    Initiating connection to Microduino_IoT. Please wait...
+    Attempting to enable network access, please check 'wpa_cli status' after a minute to confirm.
+    Done. Please connect your laptop or PC to the same network as this device and go to http://192.168.199.226 or http://eggduino.local in your browser.
 
 You can use `wpa_cli status` the check the wireless setting, and got the ip address of eggduino station.
 
     root@eggduino:~# wpa_cli status
+    Selected interface 'wlan0'
+    bssid=d0:ee:07:42:b0:52
+    ssid=Microduino_IoT
+    id=2
+    mode=station
+    pairwise_cipher=CCMP
+    group_cipher=CCMP
+    key_mgmt=WPA2-PSK
+    wpa_state=COMPLETED
+    ip_address=192.168.199.226
+    p2p_device_address=fe:c2:de:3c:a6:c8
+    address=fc:c2:de:3c:a6:c8
+
+If you want to confirm the wireless setting, you can check this file `/etc/wpa_supplicant/wpa_supplicant.conf` 
+
+    vi /etc/wpa_supplicant/wpa_supplicant.conf
+
+#### Connect with SSH from your Computer
+
+    $ ssh root@192.168.199.226
+    root@192.168.199.226's password:
+    Last login: Sun Oct  9 05:17:22 2016
+
+#### Set Edison as AP (Not Fully Tested)
+
+If let Edison work as AP, the network structure will be as :
+
+                        BLE                       Wifi
+    Eggduino Hardware  ----->  Eggduino Station  <-----  Your computer
     
+**BUT** I found it is **VERY SLOW**. so I don't use this mode. [Read more details](http://rwx.io/blog/2015/08/16/edison-wifi-config/)
+
 ## Run mAcron for Eggduino
 
 The source code and data are stored on SD Card. 
 
-    root@eggduino:~# cd workspaces/eggduino-station
-    root@eggduino:~/workspaces/eggduino-station# ls
+    root@eggduino:~# cd /media/sdcard/mAcron-egg
+    root@eggduino:/media/sdcard/mAcron-egg# ls
     README.md  config.py   db      manage.py          tests
     app        daemon  requirenments.txt  start_server.sh
-    
-	root@eggduino:~/workspaces/eggduino-station# python manage.py runserver
     
 ### Directory Structure
 
@@ -145,7 +157,7 @@ There are some tools can open SQLite DB file, such as 'DB browser of SQLite' of 
 
 You can start the server by `python manage.py runserver`, you can access the server with http://ip_address:5000
 
-    root@eggduino:~/workspaces/eggduino-station# python manage.py runserver
+    root@eggduino:/media/sdcard/mAcron-egg# python manage.py runserver
     /usr/lib/python2.7/site-packages/flask/exthook.py:71: ExtDeprecationWarning: Importing flask.ext.script is deprecated, use flask_script instead.
       .format(x=modname), ExtDeprecationWarning
      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)

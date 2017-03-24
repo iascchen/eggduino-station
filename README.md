@@ -254,11 +254,6 @@ Click 'Run' button to run daemon with '-s' mode
 
 ![docs/daemon_s.png](docs/daemon_s.png)
 
-**IMPORTANT** If you want to change the data interval, you should send stop before start. for example: 
-
-    ab0100 (press enter) 
-    ab010101 (press enter) 
-
 Stop notification
 
 * ab0100 / AB0100 : Stop temperature notification of eggduino

@@ -318,42 +318,78 @@ def sync_time():
     return redirect(url, code=302)
 
 
+def init_daemon_page(f_stop, f_interval, f_schedules):
+
+    global macron_pid
+    macron_pid = process_exist(MACRON_SHELL)
+    f_stop.hidden_pid.data = macron_pid
+    f_interval.hidden_pid.data = macron_pid
+    f_schedules.hidden_pid.data = macron_pid
+
+    scheduls_demo = '''
+    ################# Start comments #################
+    # each line is a task
+    # line start wirh '#' is comments
+    # the command line format as follow
+    # 'nn' and 'nnnn' are hex
+    # sleep_seconds is normal integer
+    ################# End comments #################
+
+    # ab0101nn,ab0201nn,ab0301nnnn,ab0401nn:sleep_seconds
+    ab0401,ab0201,ab0301,ab0401:20
+    ab040120,ab020120,ab03012000,ab040120:10000
+    # ab040120,ab020120,ab03012000,ab040120:10000
+    ab040130,ab020130,ab03013000,ab040130:50000
+        '''
+
+    f_interval.tem_interval.data = load_setting('temInterval', 20)
+    f_interval.hum_interval.data = load_setting('humInterval', 70)
+    f_interval.mov_interval.data = load_setting('movInterval', 2000)
+    f_interval.env_interval.data = load_setting('envInterval', 2)
+
+    f_schedules.schedules.data = load_setting('schedules', scheduls_demo)
+
+
 @app.route('/page_daemon')
 def daemon_page():
     form_stop = forms.PidForm(request.form)
     form_interval = forms.IntervalForm(request.form)
     form_schedules = forms.SchedulesForm(request.form)
 
-    global macron_pid
-    macron_pid = process_exist(MACRON_SHELL)
-    form_stop.hidden_pid.data = macron_pid
-    form_interval.hidden_pid.data = macron_pid
-    form_schedules.hidden_pid.data = macron_pid
-
-    scheduls_demo = '''
-################# Start comments #################
-# each line is a task
-# line start wirh '#' is comments
-# the command line format as follow
-# 'nn' and 'nnnn' are hex
-# sleep_seconds is normal integer
-################# End comments #################
-
-# ab0101nn,ab0201nn,ab0301nnnn,ab0401nn:sleep_seconds
-ab0401,ab0201,ab0301,ab0401:20
-ab040120,ab020120,ab03012000,ab040120:10000
-# ab040120,ab020120,ab03012000,ab040120:10000
-ab040130,ab020130,ab03013000,ab040130:50000
-    '''
-    form_schedules.schedules.data = scheduls_demo
+    init_daemon_page(form_stop, form_interval, form_schedules)
 
     running_mode = load_setting('runningMode', None)
-    form_interval.tem_interval.data = load_setting('temInterval', 20)
-    form_interval.hum_interval.data = load_setting('humInterval', 70)
-    form_interval.mov_interval.data = load_setting('movInterval', 2000)
-    form_interval.env_interval.data = load_setting('envInterval', 2)
 
-    form_schedules.schedules.data = load_setting('schedules', scheduls_demo)
+#     global macron_pid
+#     macron_pid = process_exist(MACRON_SHELL)
+#     form_stop.hidden_pid.data = macron_pid
+#     form_interval.hidden_pid.data = macron_pid
+#     form_schedules.hidden_pid.data = macron_pid
+#
+#     scheduls_demo = '''
+# ################# Start comments #################
+# # each line is a task
+# # line start wirh '#' is comments
+# # the command line format as follow
+# # 'nn' and 'nnnn' are hex
+# # sleep_seconds is normal integer
+# ################# End comments #################
+#
+# # ab0101nn,ab0201nn,ab0301nnnn,ab0401nn:sleep_seconds
+# ab0401,ab0201,ab0301,ab0401:20
+# ab040120,ab020120,ab03012000,ab040120:10000
+# # ab040120,ab020120,ab03012000,ab040120:10000
+# ab040130,ab020130,ab03013000,ab040130:50000
+#     '''
+#     form_schedules.schedules.data = scheduls_demo
+#
+#     running_mode = load_setting('runningMode', None)
+#     form_interval.tem_interval.data = load_setting('temInterval', 20)
+#     form_interval.hum_interval.data = load_setting('humInterval', 70)
+#     form_interval.mov_interval.data = load_setting('movInterval', 2000)
+#     form_interval.env_interval.data = load_setting('envInterval', 2)
+#
+#     form_schedules.schedules.data = load_setting('schedules', scheduls_demo)
 
     return render_template("page_daemon.html", form_interval=form_interval, form_stop=form_stop,
                            form_schedules=form_schedules,
@@ -362,21 +398,21 @@ ab040130,ab020130,ab03013000,ab040130:50000
 
 @app.route('/apply_interval', methods=['POST'])
 def apply_interval():
-    form = forms.IntervalForm(request.form)
+    form_interval = forms.IntervalForm(request.form)
 
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form_interval.validate():
 
         save_setting('runningMode', "-c")
-        save_setting('temInterval', form.tem_interval.data)
-        save_setting('humInterval', form.hum_interval.data)
-        save_setting('movInterval', form.mov_interval.data)
-        save_setting('envInterval', form.env_interval.data)
+        save_setting('temInterval', form_interval.tem_interval.data)
+        save_setting('humInterval', form_interval.hum_interval.data)
+        save_setting('movInterval', form_interval.mov_interval.data)
+        save_setting('envInterval', form_interval.env_interval.data)
 
-        if form.hidden_pid.data:
-            process_kill(form.hidden_pid.data)
+        if form_interval.hidden_pid.data:
+            process_kill(form_interval.hidden_pid.data)
 
-        cmd = compose_eggduino_cmd(form.tem_interval.data, form.hum_interval.data,
-                                   form.mov_interval.data, form.env_interval.data)
+        cmd = compose_eggduino_cmd(form_interval.tem_interval.data, form_interval.hum_interval.data,
+                                   form_interval.mov_interval.data, form_interval.env_interval.data)
         print cmd
 
         p = subprocess.Popen(cmd, stdout=open('nohup.out', 'w'), stderr=open('logfile.log', 'a'))
@@ -384,7 +420,15 @@ def apply_interval():
 
         return redirect("/page_daemon", code=302)
     else:
-        return render_template('page_daemon.html', form=form)
+        form_stop = forms.PidForm(request.form)
+        form_schedules = forms.SchedulesForm(request.form)
+
+        running_mode = load_setting('runningMode', None)
+        init_daemon_page(form_stop, form_interval, form_schedules)
+
+        return render_template('page_daemon.html', form_interval=form_interval, form_stop=form_stop,
+                               form_schedules=form_schedules,
+                               pid=macron_pid, mode=running_mode)
 
 
 @app.route('/apply_schedules', methods=['POST'])

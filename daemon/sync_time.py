@@ -102,7 +102,7 @@ try:
 
     print "After TimeSync : "
     print "\tSYS : ", datetime.datetime.now()
-    print "\tUTP : ", utp_time()
+    # print "\tUTP : ", utp_time()
     print "\tRTC : ", fetch_rtc()
 
 except:

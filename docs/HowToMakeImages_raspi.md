@@ -1,9 +1,13 @@
-# How to make Eggduino mAcron Environment —— Raspberry Pi Zero
+# How to make Eggduino mAcron Environment —— Raspberry Pi 3
 
 This file just record some steps of make the eggduino mAcron environment.
 It is **NOT** a complete documents.
 
-## Raspberry Pi Zero
+## Raspberry Pi 3
+
+### First time connect to Raspi 3
+
+Although Raspi started mDMS service, it doesn't enable SSH, so we have to use HDMI screen or UART to set it.
 
 ### On PC
 
@@ -32,11 +36,6 @@ Set password as `eggduino`
 `sudo vi /etc/ssh/sshd_config`
 Search for `PermitRootLogin` and change it to `yes`.
 
-### ZeroConf
-
-    sudo apt-get install avahi-daemon avahi-utils
-    sudo insserv avahi-daemon
-
 ### Wifi Network
 
 [Refernce Link](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
@@ -58,7 +57,7 @@ Before:
 	pi@eggduino_pi:~$ sudo su
 	root@eggduino_pi:/home/pi# wpa_passphrase %wifissidname %wifipassword >> /etc/wpa_supplicant/wpa_supplicant.conf
 	
-	wpa_passphrase Microduino MakerModule2015 >> /etc/wpa_supplicant/wpa_supplicant.conf
+	wpa_passphrase Microduino_IoT MakerModule2016 >> /etc/wpa_supplicant/wpa_supplicant.conf
 
 Make sure
 
@@ -100,8 +99,16 @@ https://cdn-learn.adafruit.com/downloads/pdf/setting-up-a-raspberry-pi-as-a-wifi
     sudo apt-get update
     sudo apt-get upgrade
     
-    sudo apt-get install python-simplejson python-pip sqlite3
+    sudo apt-get install python-simplejson python-pip sqlite3 git
     pip install pyserial ntplib flask_script flask_wtf 
+    
+    cd ~
+    mkdir workshops
+    cd workshops
+    
+    git clone https://github.com/iascchen/eggduino-station.git
+    
+   
     
 [SQLite3 Reference](https://iotbytes.wordpress.com/sqlite-db-on-raspberry-pi/)
 

@@ -35,6 +35,8 @@ OS : RASPBIAN JESSIE LITE, Version:March 2017, Release date:2017-03-02, Kernel v
 
 You will use Putty(Win) or Term2(Mac) 
 
+This version support mDNS, you can use 'hostname.local' to fine the eggduino station.
+
 #### Ethernet(Must)
 
 The network structure show as follow:
@@ -182,7 +184,7 @@ Stop backend running Server
 ![docs/status_1.png](docs/status_1.png)
 ![docs/status_2.png](docs/status_2.png)
 
-**Attention** The history time range is limited in less than 3 days.
+**Attention** For performance issue, the history time range is limited in less than 3 days.
 
 `/History/Temperatures` show the temperatures of egg in latest one hour.
 
@@ -304,6 +306,8 @@ You can data collect daemon from menu : `/Utils/Data`
 ##### Data dump
 
 Select a time range and download the records to CSV.
+
+Large data might slow. You can download the SQLite DB file via SFTP directly.
 
 ##### Clear DB
 
